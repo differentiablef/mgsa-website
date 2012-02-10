@@ -32,3 +32,6 @@ add_content_module( articles_mod )
 
 register_data_models( [ models.Article, models.Article_Comment ] )
 
+# ##############################################################################
+# register user roles
+register_user_role('contributor')

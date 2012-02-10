@@ -33,6 +33,7 @@ def view_article(articleid):
 # Name: update_articles
 # Synop: display a list of articles suitable for admin purposes
 @articles_mod.route("/edit")
+@role_required('contributor')
 def update_articles():
     arts = Article.query.all()
     return render_template("update_articles.html", articles = arts)
@@ -41,6 +42,7 @@ def update_articles():
 # Name: add_article
 # Synop: add an article submitted by authenticated user
 @articles_mod.route("/add", methods=['POST', 'GET'])
+@role_required('contributor')
 def add_article():
     if request.method == 'POST':
         art = Article()
@@ -61,6 +63,7 @@ def add_article():
 # Name: edit_article
 # Synop: update the specified article with the changes submitted via POST
 @articles_mod.route("/edit/<int:articleid>", methods=['GET', 'POST'])
+@role_required('contributor')
 def edit_article(articleid):
     art = Article.query.get(articleid)
     if art is None:
@@ -85,6 +88,7 @@ def edit_article(articleid):
 # Name: delete_article
 # Synpo: obvious
 @articles_mod.route("/delete/<int:articleid>")
+@role_required('contributor')
 def delete_article(articleid):
     art = Article.query.get(articleid)
     if art is None:
@@ -104,6 +108,7 @@ def delete_article(articleid):
 # Name: add_article_comment
 # Synop: obvious
 @articles_mod.route("/addcomment/<int:articleid>", methods=['POST'])
+@login_required
 def add_article_comment(articleid):
     art = Article.query.get(articleid)
     if art is None:
