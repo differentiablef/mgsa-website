@@ -3,6 +3,10 @@
 <html>
 <head>
 <meta charset="utf-8" />
+
+<!-- because fuck internet explorer -->
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+
 <title>Mathematics Graduate Student Association</title>
 
 <!-- Required Jinja replacement -->
@@ -15,6 +19,9 @@
 
 <!-- Google WebFonts -->
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,800,700,600,300' rel='stylesheet' type='text/css'>
+
+<!-- Google Chrome Frame -->
+<script type="text/javascript"    src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
 
 <!-- MathJax -->
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
@@ -39,6 +46,13 @@
 
 </head>
 <body>
+<!--- Chrome Frame Install/Check -->
+<script text="text/javascript">
+  CFInstall.check({
+  mode: "overlay",
+  destination: "http://uncc-mgsa.chromotopy.org/" 
+});
+</script>
 
 <!-- JQuery-Notify Template -->
 <div id="notify-container" style="display:none; z-index: 99999999;">
