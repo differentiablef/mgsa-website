@@ -1,0 +1,134 @@
+
+      MGSA-Website
+ ---------------------------------------------------------------------------
+
+ This is a basic Flask-based 'CMS' written specifically to service
+the needs of a graduate student organization.
+
+ Depends on:
+    lessc                      (the lesscss compiler http://lesscss.org/)
+    virtualenv or virtualenv2  (http://pypi.python.org/pypi/virtualenv) 
+    mod_wsgi                   (apache module for WSGI)
+
+ --- Setting up the environment --------------------------------------------
+
+To prepare the enviornment for deployment:
+
+  $ make setup
+
+This will create a directory 'env' in which a local 'virtual' 
+python enviornment is setup, containing all the required packages
+required for this 'webapp' to function.
+
+ Once the environment is prepared, you will need to configure the 
+database system you will be using. This amounts to editing the 
+file 'website.conf' and setting DATABASE_URI to the proper URI
+for the database system you will be using 
+ To see the format of the uri and the supported databases goto: 
+
+   http://packages.python.org/Flask-SQLAlchemy/config.html#connection-uri-format
+
+(Note: the provided website.conf is setup to use sqlite3 by 
+default.)
+
+ --- Initialize the databasse ----------------------------------------------
+
+To initialize the database call:
+
+  $ make setup-db
+
+This will call initial_setup.py, which will create the database tables needed
+by the various models used. Moreover, this will populate the tables with any
+default entries which have been configured in website.conf.
+ In addition, an admin user is created with login information
+
+    Username: admin
+    Password: burned
+
+
+ --- Making sure it works --------------------------------------------------
+
+In an effort to avoid later errors it might be a good idea to run
+
+  $ make devel-server
+
+Doing this will spawn a development server on the localhost, which can be 
+accessed by navigating to:
+
+  http://localhost:5000/
+
+From there you can configure any additional parameters using the admin
+interface of the website before you 'deploy' it.
+
+ --- Deploying the Application ---------------------------------------------
+
+Before we deploy anything make sure the permissions are setup correctly.
+You want whatever user:group pair you will be runing the app under to have 
+access to the mgsa-website directory, and any other paths you may require.
+
+ ------ Apache Config ------------------------------------------------------
+
+Example Configuration: everything should be obvious
+
+<VirtualHost *:80>
+
+  ServerName student-organization.unhappy.edu
+  ServerAdmin YOUR_EMAIL
+  DocumentRoot /path/to/mgsa-website/extern/
+
+  WSGIDaemonProcess application user=APPLICATION_USER group=APPLICATION_GROUP processes=2 threads=2
+  WSGIScriptAlias / /path/to/mgsa-website/app.wsgi
+
+  <Directory "/path/to/mgsa-website/">
+    Order allow,deny
+    Allow from all
+    WSGIProcessGroup application
+    WSGIApplicationGroup %{GLOBAL}
+  </Directory>
+
+  <Directory /home/burned/website_base/extern/>
+    Order allow,deny
+    Allow from all
+    Options +Indexes
+  </Directory>
+
+  ErrorLog /var/log/httpd/error-mgsa.wsgi.log
+
+  LogLevel warn
+  
+  CustomLog /var/log/httpd/access-mgsa.log combined
+
+</VirtualHost>
+
+ ------ The Final Deployment -----------------------------------------------
+
+To complete the deployment run:
+  
+  $ make app.wsgi
+
+this will create the entry point for mod_wsgi and everything "should" work
+after you restart apache.
+
+ --- Special Thanks --------------------------------------------------------
+
+The authors of Flask Flask-SQLAlchemy Flask-WTF Flask-SiJax Flask-Bcrypt 
+Flask-Mail.
+
+And the authors of Flask-Admin Flask-DebugToolbar Flask-LoginManager Flask-Less
+Flask-gravatar.
+
+  (the last have been modified and rolled into the project)
+
+
+
+ --- Extending the code --------------------------------------------------
+
+  The best place for documentation on extending base and writing new
+modules can be found in:
+
+   mgsa-website/base/*.py
+
+and in the fully commented example module located:
+
+   mgsa-website/modules/example/
+
