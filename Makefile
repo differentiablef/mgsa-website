@@ -36,9 +36,9 @@ setup:
 		if ! [ -x $(VIRTUAL_ENV2) ]; then \
 			echo "Error: failed dependency Virtualenv"; \
 			exit -1; \
-		else
-			VIRTUAL_ENV = $(VIRTUAL_ENV2)
-		fi
+		else \
+			VIRTUAL_ENV = $(VIRTUAL_ENV2); \
+		fi \
 	fi 
 	$(VIRTUAL_ENV) $(VIRTUAL_ENV_DIR) 
 	if ! [ -x $(EASY_INSTALL) ]; then \
