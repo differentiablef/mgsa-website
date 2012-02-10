@@ -6,10 +6,11 @@ SUB_DIRS=calendar \
 	example \
 	organization \
 	seminars \
+	articles \
 	usertools
 
 all: 
-	
+
 .SUFFIXES:
 .SUFFIXES:	.py .conf .css .less .html .sh
 
