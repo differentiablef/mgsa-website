@@ -33,12 +33,8 @@ app.wsgi:
 
 setup: 
 	if ! [ -x $(VIRTUAL_ENV) ]; then \
-		if ! [ -x $(VIRTUAL_ENV2) ]; then \
-			echo "Error: failed dependency Virtualenv"; \
-			exit -1; \
-		else \
-			VIRTUAL_ENV = $(VIRTUAL_ENV2); \
-		fi \
+		echo "Error: failed dependency Virtualenv"; \
+		exit -1; \
 	fi 
 	$(VIRTUAL_ENV) $(VIRTUAL_ENV_DIR) 
 	if ! [ -x $(EASY_INSTALL) ]; then \
