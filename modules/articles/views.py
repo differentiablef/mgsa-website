@@ -7,7 +7,7 @@ from base.user import User
 from modules.articles import articles_mod
 from models import Article, Article_Comment
 
-from flask import render_template
+from flask import render_template, request, flash
 
 # ##############################################################################
 # Name: default
@@ -60,16 +60,45 @@ def add_article():
 # ##############################################################################
 # Name: edit_article
 # Synop: update the specified article with the changes submitted via POST
-@articles_mod.route("/edit/<int:articleid>")
+@articles_mod.route("/edit/<int:articleid>", methods=['GET', 'POST'])
 def edit_article(articleid):
-    return default()
+    art = Article.query.get(articleid)
+    if art is None:
+        flash("No Such Article", "Error")
+        return default()
+
+    if request.method == 'POST':
+        if art.author_id == current_user.id or current_user.has_role('admin'):
+            art.body = request.form.get("body")
+            art.css = request.form.get("css")
+            art.javascript_before = request.form.get("javascript_before")
+            art.javascript_after = request.form.get("javascript_after")
+            art.title = request.form.get("title")
+            art.author_blurb = request.form.get("author_blurb")
+            base_app.db.session.commit()
+            flash("Article Updated", "Success")
+            return default()
+    
+    return render_template("edit_article.html", article = art)
 
 # ##############################################################################
 # Name: delete_article
 # Synpo: obvious
 @articles_mod.route("/delete/<int:articleid>")
 def delete_article(articleid):
-    return default();
+    art = Article.query.get(articleid)
+    if art is None:
+        flash("No Such Article", "Error")
+        return default()
+
+    if current_user.id == art.author_id or current_user.has_role('admin'):
+        for comment in art.comments:
+            base_app.db.session.delete(comment)
+        base_app.db.session.delete(art)
+        base_app.db.session.commit()
+        flash("Article Deleted", "Success")
+    
+    return default()
 
 # ##############################################################################
 # Name: add_article_comment

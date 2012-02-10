@@ -34,7 +34,7 @@
 
 {% block body %}
 <div id="admin-main">
-<form class="model-edit-form" method="POST" action="{{url_for('.edit_article')}}" >
+<form class="model-edit-form" method="POST" action="{{url_for('.edit_article', articleid=article.id)}}" >
 <div id="upper-form" class="model-edit-form  article-content">
 <fieldset>
     <legend>
