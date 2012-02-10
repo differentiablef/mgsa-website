@@ -77,7 +77,7 @@ class Article(db.Model):
 class Article_Comment(db.Model):
     id            = db.Column(db.Integer, primary_key=True)
     article_id       = db.Column(db.Integer, db.ForeignKey('article.id'), nullable=False)       # id number of the post this is a comment for
-    article          = db.relationship("Article")
+    article          = db.relationship("Article", backref="comments")
     body          = db.Column(db.Text)          # text of the comment
     pub_date      = db.Column(db.DateTime)      # comment date
     author_id     = db.Column(db.Integer, db.ForeignKey('user.id'),nullable=False)       # id number of author
@@ -85,11 +85,10 @@ class Article_Comment(db.Model):
     
     user = db.relationship("User", backref='article_comments')
     
-    def __init__(self, postid=0, body=None, author=0, pub_date=None):
+    def __init__(self, articleid=0, body=None, pub_date=None):
         
-        self.post_id = postid
+        self.article_id = articleid
         self.body = body
-        self.author = author
         
         if pub_date is None:
             pub_date = datetime.utcnow()
@@ -97,7 +96,7 @@ class Article_Comment(db.Model):
         self.pub_date = pub_date
 
     def __repr__(self):
-        return '%s by %s' % (self.body, self.user.get_display_name())
+        return '%s by %s' % (self.body, self.author.get_display_name())
 
 
     def get_body(self):
@@ -107,5 +106,5 @@ class Article_Comment(db.Model):
         return self.pub_date.strftime('%m/%d/20%y %I:%M');
 
     def get_display_name(self):
-        return User.query.get(self.author).get_display_name();
+        return self.author.get_display_name();
 

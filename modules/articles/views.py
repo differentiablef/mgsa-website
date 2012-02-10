@@ -105,4 +105,17 @@ def delete_article(articleid):
 # Synop: obvious
 @articles_mod.route("/addcomment/<int:articleid>", methods=['POST'])
 def add_article_comment(articleid):
+    art = Article.query.get(articleid)
+    if art is None:
+        flash("No Such Article", "Error")
+        return default()
+
+    cmt = Article_Comment()
+    cmt.article_id = art.id
+    cmt.author_id = current_user.id
+    cmt.body = request.form.get("comment-body")
+
+    base_app.db.session.add(cmt)
+    base_app.db.session.commit()
+    
     return default()

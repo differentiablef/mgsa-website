@@ -46,7 +46,7 @@
 		
 		{% if show_comments == True %}
             {% for comment in article.comments %}
-                {{show_comment(comment, user)}}
+                {{show_article_comment(comment, user)}}
             {% endfor %}
             {{ new_article_comment_form(article, user) }}
 		{% endif %}
