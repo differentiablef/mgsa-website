@@ -11,7 +11,7 @@
     	    {% endif %}
     	    </div>
 	        {% if show_all == False %}
-	            <div class="article-body">{{ article.get_body()|truncate|safe }} <a href="{{ url_for('.view_article', articleid=article.id)}}">read more</a></div>
+	            <div class="article-body">{{ article.get_body()|truncate(500)|safe }} <a href="{{ url_for('.view_article', articleid=article.id)}}">read more</a></div>
 	        {% else %}
 	            <div class="article-body">
 	            {% if author_detailed == True %}
