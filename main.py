@@ -1,4 +1,3 @@
-#!/usr/bin/python
 
 # ##############################################################################
 # Local imports and initialization
@@ -41,7 +40,7 @@ def default( templatename = None, error = None, redirect_func = None ):
             return call_view(redirect_func)
         
         if templatename is None and redirect_func is None:
-            return call_view('news.default')
+            return redirect(url_for('news.default'))
     
     if templatename is None:
         templatename = 'layout.html'
