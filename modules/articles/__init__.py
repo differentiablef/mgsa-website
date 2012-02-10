@@ -1,7 +1,8 @@
 
 # ######################################################################3#######
 # imports
-from base import base_app, add_content_module, register_data_models, url_for
+from base import base_app, add_content_module, register_data_models, url_for 
+from base import register_user_role
 from base.module import ContentModule
 
 
