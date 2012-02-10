@@ -1,0 +1,117 @@
+/******************************************************************************
+ * Section: Full reset, anything which has this class will
+ * have all the style elements return to the default padding and spacing
+ *****************************************************************************/
+.full-reset h1 {
+  font-size: 2em;
+  margin: .67em 0;
+}
+.full-reset h2 {
+  font-size: 1.5em;
+  margin: .75em 0;
+}
+.full-reset h3 {
+  font-size: 1.17em;
+  margin: .83em 0;
+}
+.full-reset h4,
+.full-reset p,
+.full-reset blockquote,
+.full-reset ul,
+.full-reset fieldset,
+.full-reset form,
+.full-reset ol,
+.full-reset dl,
+.full-reset dir,
+.full-reset menu {
+  margin: 1.12em 0;
+}
+.full-reset h5 {
+  font-size: .83em;
+  margin: 1.5em 0;
+}
+.full-reset h6 {
+  font-size: .75em;
+  margin: 1.67em 0;
+}
+.full-reset h1,
+.full-reset h2,
+.full-reset h3,
+.full-reset h4,
+.full-reset h5,
+.full-reset h6,
+.full-reset b,
+.full-reset strong {
+  font-weight: bolder;
+}
+.full-reset blockquote {
+  margin-left: 40px;
+  margin-right: 40px;
+}
+.full-reset i,
+.full-reset cite,
+.full-reset em,
+.full-reset var,
+.full-reset address {
+  font-style: italic;
+}
+.full-reset pre,
+.full-reset tt,
+.full-reset code,
+.full-reset kbd,
+.full-reset samp {
+  font-family: monospace;
+}
+.full-reset pre {
+  white-space: pre;
+}
+.full-reset button,
+.full-reset textarea,
+.full-reset input,
+.full-reset select {
+  display: inline-block;
+}
+.full-reset big {
+  font-size: 1.17em;
+}
+.full-reset small, .full-reset sub, .full-reset sup {
+  font-size: .83em;
+}
+.full-reset sub {
+  vertical-align: sub;
+}
+.full-reset sup {
+  vertical-align: super;
+}
+.full-reset table {
+  border-spacing: 2px;
+}
+.full-reset thead, .full-reset tbody, .full-reset tfoot {
+  vertical-align: middle;
+}
+.full-reset td, .full-reset th, .full-reset tr {
+  vertical-align: inherit;
+}
+.full-reset s, .full-reset strike, .full-reset del {
+  text-decoration: line-through;
+}
+.full-reset hr {
+  border: 1px inset;
+}
+.full-reset ol,
+.full-reset ul,
+.full-reset dir,
+.full-reset menu,
+.full-reset dd {
+  margin-left: 40px;
+}
+.full-reset ol {
+  list-style-type: decimal;
+}
+.full-reset ol ul,
+.full-reset ul ol,
+.full-reset ul ul,
+.full-reset ol ol {
+  margin-top: 0;
+  margin-bottom: 0;
+}

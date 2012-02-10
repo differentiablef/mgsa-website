@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Mathematics Graduate Student Association</title>
+    
+    <!-- Required Jinja replacement -->
+    <script type="text/javascript" >
+      $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+    
+    <!-- Global CSS Includes -->
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='js/codemirror/lib/codemirror.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='js/codemirror/theme/night.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/main-layout.css')}}" />
+    
+    <!-- MathJax -->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    
+    <!-- Generic JQuery Stuff -->
+    <script type="text/javascript" src="{{url_for('static', filename='js/jquery.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/jquery-ui.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/jquery-transform2d.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/jquery-uniform.js')}}"></script>
+    
+    
+    <!-- Global JS Includes -->
+    <script type="text/javascript" src="{{url_for('static', filename='js/sijax.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/main.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/codemirror/lib/codemirror.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/codemirror/lib/util/overlay.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/codemirror/lib/util/dialog.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/codemirror/mode/htmlmixed/htmlmixed.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/codemirror/mode/xml/xml.js')}}"></script>
+    
+    <style type="text/css">
+    .CodeMirror {
+        border-top: 1px solid black; 
+        border-bottom: 1px solid black;
+        font-size: 1.5em;
+    }
+    
+    .CodeMirror-scroll {
+        display: block;
+        position: absolute;
+        height: 90%;
+        width: 100%;
+    }
+
+    .cm-jinja2 {color: #0ca;}
+    </style>
+
+    <script type="text/javascript">
+        {{ g.sijax.get_js()|safe }}
+    </script>
+  </head>
+  <body>
+  
+<div id="code-button-bar">
+    <button id="beginning">go to beginning</button>
+	<button id="rewind">rewind</button>
+	<button id="play">play</button>
+	<button id="stop">stop</button>
+	<button id="forward">fast forward</button>
+	<button id="end">go to end</button>
+</div>
+
+<form>
+<div id="code-container">
+    <textarea id="code" name="code">
+        {{ resource_contents|safe }}
+    </textarea>
+</div>
+
+</form>
+<script type="text/javascript" src="{{url_for('static', filename='js/admin/code_edit.js')}}"></script>
+</body>
+</html>

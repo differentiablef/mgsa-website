@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+{% from 'user/user_macros.html' import login_form %}
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Mathematics Graduate Student Association</title>
+
+<!-- Required Jinja replacement -->
+<script type="text/javascript" >
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>
+
+<!-- Global CSS Includes -->
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/main-layout.css')}}" />
+
+<!-- Google WebFonts -->
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,800,700,600,300' rel='stylesheet' type='text/css'>
+
+<!-- MathJax -->
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+
+<!-- Generic JQuery Stuff -->
+<script type="text/javascript" src="{{url_for('static', filename='js/jquery.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/jquery-ui.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/jquery-transform2d.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/jquery-uniform.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/jquery-notify.js')}}"></script>
+
+<!-- Global JS Includes -->
+<script type="text/javascript" src="{{url_for('static', filename='js/sijax.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/main.js')}}"></script>
+
+<!-- View Specific Head additions -->
+{% block head %}{% endblock %}
+
+<!-- View Specific Scripts -->
+{% block script %}{% endblock %}
+
+
+</head>
+<body>
+
+<!-- JQuery-Notify Template -->
+<div id="notify-container" style="display:none; z-index: 99999999;">
+    <div id="basic-template">
+        <a class="ui-notify-cross ui-notify-close" href="#">x</a>
+            <h1>#{title}</h1>
+            <p>#{text}</p>
+    </div>
+</div>
+    
+
+<div id="main">
+  <div id="header">
+    <div class="textMGSA"><b>MGSA</b></div>
+    <div class="textMathGrad"><b>Mathematics Graduate Student</b></div>
+    <div id="navigation-main">
+      <div class="navigation-bar">
+	{% for mod in content_modules %}
+           {{ mod.get_menus() | safe }}
+	{% endfor %}
+	  <div class="textAssociation"><b>Association</b></div>
+      <div style="clear: both;"></div>
+      </div>
+    </div>
+  </div>
+  <div id="content">
+    {% block content %}
+    <div id="content-main">
+    <div class="filler ui-widget">
+     <div class="contents">
+	  <div id="loading" style="display:none;">Loading...</div>
+	    {% block body %}{% endblock %}
+      </div>
+     </div>
+    </div>
+    <div id="content-sidepane">
+      <div class="filler" >
+	<div id="user-navigation-bar">
+	   {% if current_user.is_anonymous() %}
+	       {{ login_form() }}
+	   {% else %}
+	       {% for mod in content_modules %}
+	           {{ mod.get_side_menus(current_user) | safe }}
+	       {% endfor %}
+	   {% endif %}
+	</div>
+	    <div id="links">
+          <div>
+            <h3 role="tab" class="ui-helper-reset ui-state-active ui-corner-top">"Helpful" Links</h3>
+            <a href="http://www.registrar.uncc.edu/calendars/calendar.asp">Academic Calendar</a>
+            <a href="http://math.uncc.edu/">Dep. of Mathematics and Stat</a>
+            <a href="#">Graduate Funding Information</a>
+            <a href="#">Travel Grant Forms</a>
+          </div>
+          <div id="affiliates-links" style="background:white;">
+            <h3 role="tab" class="ui-helper-reset ui-state-active ui-corner-top">Affiliates</h3>
+            <br>
+            <div style="text-align:center;">
+              <a href="http://graduateschool.uncc.edu/"><img src="http://gpsg.uncc.edu/images/graduateSchool.jpg"></a>
+              <a href="http://gpsg.uncc.edu/"><img src="/static/img/gpsg_side.jpg"></a>
+              <br>
+            </div>
+          </div>
+	    </div>
+      </div>
+    </div>
+    {% endblock content %}
+  </div>
+  <div id="footer">
+    <a href="http://www.mathjax.org/"><img title="Powered by MathJax" src="http://www.mathjax.org/badge.gif" border="0" alt="Powered by MathJax" /></a>
+    <a href="http://flask.pocoo.org/"><img src="http://flask.pocoo.org/static/badges/flask-project-s.png" border="0" alt="a Flask project" title="a Flask project"></a>
+    <a href="http://httpd.apache.org/"><img src="{{url_for('static', filename='img/powered_by_apache.png')}}"></a>
+    <a href="http://www.python.org/"><img src="{{url_for('static', filename='img/python_powered.png')}}" ></a>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $(function() {
+        $("#notify-container").notify();
+        {% for category, message in get_flashed_messages(with_categories = True) %}
+            $("#notify-container").notify("create", {title: {{category|tojson|safe}}, text: {{message|tojson|safe}} });
+        {% endfor %}
+    });
+</script>
+
+</body>
+</html>

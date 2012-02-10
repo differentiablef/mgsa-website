@@ -1,0 +1,60 @@
+
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="main-form">
+<div class="form-title">Account Information</div>
+<form action="{{ url_for('user_update_submit') }}" method="POST">
+<fieldset>
+    <legend>User Information</legend>
+    Firstname:
+    <input size=30 type=text name=firstname value="{{ user.firstname }}">
+    Lastname:
+    <input size=30 type=text name=lastname value="{{ user.lastname }}">
+    Display Name (the name which will appear on posts, etc.):
+    <input size=20 type=text name=nickname value="{{ user.nickname }}">
+      
+        {# The following code will print the list of valid degree programs
+           in a select box for the form #}
+    Current Program:
+    <select style="width: 300px" name="degree_program" >
+        {% for id,degree in degrees.iteritems() %}
+        	{% if id == user.degree_program %}
+            	<option value="{{id}}" selected="selected">{{degree}}</option>
+            {% else %}
+            	<option value="{{id}}">{{degree}}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+</fieldset>
+<input type=submit value=Update>
+</form>
+
+<form action="{{ url_for('user_update_submit') }}" method="POST">
+<fieldset >
+    <legend>Contact Information</legend>
+    Email Address:
+    <input size=30 type=text name=email value="{{ user.email }}">
+    UNCC Email Address (used for verification purposes):
+    <input size=30 type=text name="uncc_email" value="{{ user.uncc_email }}">
+</fieldset>
+<input type=submit value=Update>
+</form>
+
+
+<form action="{{ url_for('user_update_submit') }}" method="POST">
+<fieldset>
+	<legend>User Password</legend>
+	Current Password:
+    <input size=16 type=password name=curpassword value="password">
+    Password:
+    <input size=16 type=password name=newpassword value="password">
+    Password Again:
+    <input size=16 type=password name=newpassword2 value="password">
+</fieldset>
+
+<input type=submit value="Change Password">
+</form>
+</div>
+{% endblock %}
+

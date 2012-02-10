@@ -1,0 +1,60 @@
+{% extends "admin/extra_base.html" %}
+{% from "admin/_formhelpers.html" import render_field %}
+
+{% block title %}
+  Add a new {{model_name}}
+{% endblock %}
+
+
+{% block main %}
+
+
+<form class="model-edit-form" method="POST" action="{{ url_for('admin.add', model_name=model_name)}}" {% if form._has_file_field %} enctype="multipart/form-data"{% endif %}>
+    <div id="upper-form" class="model-edit-form">
+    <fieldset>
+        <legend>
+          Adding {{model_name}}
+        </legend>
+        {% for field in form %}
+            {{ render_field(field) }}
+        {% endfor %}
+        {{ form.csrf }}
+    </fieldset>
+    </div>
+    <div id="lower-form" class="model-edit-form"><fieldset><br id="insert-point"></fieldset></div>
+        <input id="submit" type="submit" value="Submit" class="button"/>
+        {#
+        <!-- <input id="cancel" type="button" value="Cancel" class="button"
+               onclick="javascript:window.location = '{{ url_for('.list', model_name=model_name) }}'" />
+        -->
+        #}
+</form>
+
+<script type="text/javascript" language="javascript">
+// <![CDATA[
+field_count = $("form").find(".field-container").size();
+    
+    if( field_count > 3 ) {
+        var cont = $("#lower-form #insert-point");
+        
+        $(".model-edit-form .field-container").each(
+            function() {
+                var tarea = this.getElementsByTagName("textarea");
+                if( tarea.length > 0 ) {
+                    cont.after(this);
+                    return;
+                }
+            }
+        );
+        
+        $(".field-container").addClass("dontsplit");
+        $("#upper-form").columnize({
+            columns: 2,
+            width: 250,
+            buildOnce: true
+        });
+
+    }
+// ]]>
+</script>
+{% endblock %}

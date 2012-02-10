@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/news_posts.css')}}" />
+
+<!-- TinyMCE Stuff -->
+<script type="text/javascript" src="{{url_for('static', filename='js/tiny_mce/tiny_mce.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/tiny_mce/jquery.tinymce.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/richedit-light.js')}}"></script>
+
+{% endblock %}
+
+{% block script %}
+{% endblock %}
+
+{% macro render_field(field, show_error_list=True) %}
+    <div {% if show_error_list and field.errors %}class="error"{% endif %}>
+        {{ field.label }}
+        {{ field(class=field.name)|safe }}
+        {% if show_error_list and field.errors %}
+            <ul class="errors_list">
+        {% for error in field.errors %}<li>{{ error }}</li>{% endfor %}
+            </ul>
+        {% endif %}
+  </div>
+{% endmacro %}
+
+{% block body %}
+
+<form class="{{ form_name }}-form" method="POST" action=""{% if form._has_file_field %} enctype="multipart/form-data"{% endif %}>
+    <fieldset>
+        {% for field in form %}
+            {% if field.name != 'csrf' %}
+            {{ render_field(field) }}
+            {% endif %}
+        {% endfor %}
+        {{ form.csrf }}
+    </fieldset>
+    <input type="submit" value="Submit" class="button"/>
+    <input type="button" value="Cancel" class="button"/>
+</form>
+
+{% endblock %}
+
+

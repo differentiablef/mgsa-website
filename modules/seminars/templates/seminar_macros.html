@@ -1,0 +1,76 @@
+
+{# Show Seminar Macro #########################################################}
+
+{% macro show_seminar(seminar, user, show_menu=True, show_talks=False) %}
+	    <div id="seminar-{{seminar.id}}" class="seminar-content">
+	        <div class="title">{{ seminar.get_title() }}</div>
+	        <div class="ui-state-focus info">
+    	        <span class="website"><a href="{{ seminar.get_website() }}">Seminar Website</a></span>
+    	        <span class="contact">Contact: <a href="mailto:{{ seminar.get_contact_email() | safe}}">{{seminar.get_contact_name()}}</a></span>
+	        </div>
+	        
+	        {% if seminar.is_private() %}
+    	        <span class="note" >This seminar is private, please contact <a href="mailto:{{ seminar.get_contact_email() | safe}}">{{seminar.get_contact_name()}}</a> before attending.</span>
+    	    {% endif %}
+	        <div class="description"> {{ seminar.get_description() }}</div>
+	        
+	        <div class="menu">
+	        {% if show_menu %}
+	        
+	            <a href="{{ url_for('.view_seminar', seminarid=seminar.id)}}">read more</a>
+                {% if user.id == seminar.Organizer.id or user.has_role('admin') %}
+                <div class="menu-admin">
+	                <a href="{{ url_for('.add_talk_seminar', seminarid=seminar.id)}}">add talk</a>
+    	            <a href="{{ url_for('.edit_seminar', seminarid=seminar.id)}}">edit</a>
+    	            <a href="{{ url_for('.delete_seminar', seminarid=seminar.id)}}">delete</a>
+	            </div>
+    	        {% endif %}
+    	    
+    	    {% endif %}
+    	    </div>
+    	    
+	        {% if show_talks %}
+	        <div class="talk-list">
+	            {% if seminar.talks.__len__() > 0 %}
+	            <h3>Talks</h3>
+	            {% for talk in seminar.talks %}
+    	            {{ show_seminar_talk(talk, user) }}
+	            {% endfor %}
+	            {% endif %}
+	        </div>
+	        {% endif %}
+	        
+	        
+	    </div>
+		<div style="clear: both;"></div>
+		<br>
+{% endmacro %}
+
+
+{# Show Seminar Talk Macro #########################################################}
+
+{% macro show_seminar_talk(talk,user, showMenu=True) %}
+		<div id="talk-{{talk.id}}" class="talk-content">
+		    <div class="topic">{{talk.get_topic()|title }}</div>
+		    <h4>Abstract:</h4>
+		    <div class="abstract"><p>{{ talk.get_abstract() }}</p></div>
+		    <h4>Speakers:</h4>
+		    <div class="speaker">{{ talk.get_speaker() }}</div>
+		    <h4>Speaker Info:</h4>
+		    <div class="speaker-info">{{ talk.get_speaker_info() }}</div>
+		    <h4>Date and Location</h4>
+		    <div class="date">{{ talk.get_date() }}</div>
+		    <div class="location">{{ talk.get_location() }}</div>
+		    {% if showMenu == True %}
+		    <div class="menu">
+                {% if user.is_authenticated() %}
+                <div class="menu-admin">
+    	            <a href="{{ url_for('.edit_talk_seminar', talkid=talk.id)}}">edit</a>
+    	            <a href="{{ url_for('.delete_talk_seminar', talkid=talk.id)}}">delete</a>
+	            </div>
+    	        {% endif %}
+    	    </div>
+    	    {% endif %}
+		</div>
+{% endmacro %}
+

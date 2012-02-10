@@ -1,0 +1,27 @@
+
+{# Show Event Macro #########################################################}
+
+{% macro show_event(event,user) %}
+    
+	    <div id="event-{{event.id}}" class="event-content">
+            <div class="event-header"></div>
+	        <div class="event-title">{{ event.get_title() }}</div>
+	        <div class="event-datetime">
+    	        <div class="event-date">Date: {{ event.get_date() }}</div>
+	            <div class="event-time">Begins At: {{ event.get_start_time() }}</div>
+	            <div class="event-location">Location: {{ event.get_location() }}</div>
+	            <div class="event-length">Durration: {{ event.get_durration() }}</div>
+	        </div>
+	        
+	        <div class="event-basics">
+    	        <div class="event-info">{{ event.get_info() }}</div>
+	            <div class="event-author"> {{ event.get_display_name() }}</div>
+	        </div>
+	        <div class="event-footer"></div>
+	    </div>
+	    
+		<div style="clear: both;"></div>
+
+{% endmacro %}
+
+

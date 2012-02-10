@@ -1,0 +1,153 @@
+
+#articles {
+    h2 {
+        font-size: 2.25em;
+        padding: 0.25em;
+    }
+    
+    .column {
+        //padding: 2px;
+    }
+    
+    overflow: hidden;
+    padding: 0.25em;
+
+    #article-list {
+        .article-content {
+            padding: 2px;
+        }
+    }    
+}
+.article-content {
+//    padding-right: 2px;
+
+    .article-header { }
+
+    .article-title {
+        position: relative;
+
+        font-size: 25px;
+        font-weight: bold;
+        padding: 5px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        background-color: #eee;
+        border-bottom: solid 1px black;
+    }
+
+    .article-pubdate {
+        width: 35%;
+        float: right;
+        min-width: 100px;
+        font-weight: bold;
+        padding: 4px;
+        font-size: .8em;
+        color: white;
+        background: #999999;
+        text-align: right;
+        width: 30%;
+    }
+
+    .article-author {
+        background: #999999;
+        font-style: italic;
+        font-size: .8em;
+        padding: 4px;
+        width: 70%;
+        color: white;
+    }
+
+    .article-body {
+        clear: both;
+        font-size: 1.2em;
+        padding-top: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
+        overflow: hidden;
+        p {
+            text-indent: 15px;
+        }
+
+        code {
+            display: block;
+            background: #bbb;
+            padding: 5px;
+            text-align: none;
+            padding-left: 20px;
+        }
+    }
+
+    .article-footer {
+        border-bottom: solid 2px #747474;
+        position: relative;
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+    
+    .author-blurb {
+        display: inline-block;
+        float: right;
+        position: relative;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        width: 350px;
+        .author-pic {
+        
+            padding-left: 20px;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+        
+        .author-info {
+            width: 170px;
+            display: inline-block;
+            padding-right: 20px;
+            vertical-align: top;
+        }
+    }
+    
+    .article-menu {
+        text-align: right;
+        padding: 3px;
+        font-size: 0.8em;
+        a {
+            padding: 3px;
+
+            &:hover {
+                color: black;
+                background-color: #eee;
+            }
+        }
+    }
+}
+
+.comment-content {
+    background-color: #eee;
+    border-left: solid 5px black;
+    padding-left: 5px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    font-size: 1em;
+
+    .comment-header { }
+    .comment-pubdate {
+        display: inline-block;
+    }
+    .comment-author {
+        display: inline-block;
+        font-style: italic;
+    }
+    
+    .comment-body {
+        word-wrap: break-word;
+        font-size: 1.2em;
+    }
+
+    .comment-footer { }
+}
+
+
+
+

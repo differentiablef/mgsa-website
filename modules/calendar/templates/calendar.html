@@ -1,0 +1,218 @@
+{% extends "layout.html" %}
+
+{% block head %}
+
+<script type="text/javascript" src="{{url_for('static', filename='js/jquery-ui-timepicker.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/jquery-ui-fullcalendar.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/jquery-ui-fullcalendar-gcal.js')}}"></script>
+
+{% endblock %}
+
+{% block script %}
+
+<script type="text/javascript">
+
+$(function() {
+    
+    // Add/Update Event Form
+    var event_title    = $('#add-title'),
+        event_start    = $('#add-start-date'),
+        event_end      = $('#add-end-date'),
+        event_all_day  = $('#add-all-day'),
+        event_info     = $('#add-info'),
+        event_location = $('#add-location'),
+        event_id       = $('#add-event-id'),
+        event_form     = $('#addeventform'),
+        event_win      = $('#event-form');
+    
+        event_win.dialog({
+		autoOpen: false,
+		height: 350,
+		width: 500,
+		modal: true,
+		buttons: {
+			{% if current_user.is_anonymous() %}
+			{% else %}
+			"Submit": function() {
+			    var dtitle = event_win.dialog('option', 'title');
+			    var funcName = 'renderEvent';
+			    // This form will be both the update and add event form
+			    
+			    if( dtitle == 'Update Event' ) {
+			        funcName = 'updateEvent';
+			        event_form.attr('action', {{ url_for( 'calendar.update_event' ) | tojson | safe }} );
+			    } else {
+			    
+			        event_form.attr('action', {{ url_for( 'calendar.add_event' ) | tojson | safe }} );
+			    }
+			    
+			    $('#calendar').fullCalendar(funcName,
+			        { 
+			            id: event_id.val(),
+    			        title: event_title.val(),
+	    		        start: event_start.val(),
+	    		        end: event_end.val(),
+	    		        allDay: event_all_day.is(":checked"),
+	    		        info: event_info.val(),
+	    		        location: event_location.val()
+	    		    }
+	    		);
+	    		
+	    		event_form.submit();
+			    
+			    $( this ).dialog( "close" );
+			},
+			{% endif %}
+			
+			Cancel: function() {
+			
+				$( this ).dialog( "close" );
+			}
+		},
+		close: function() {
+		    event_id.val("");
+   	        event_title.val("");
+   	        event_start.val("");
+   	        event_end.val("");
+	   	    event_info.val("");
+	   		event_location.val("");
+
+		}
+	});
+	
+    // Calendar setup and initialization
+{% if current_user.is_anonymous() %}
+   	$('#calendar').fullCalendar({
+        header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+		},
+        theme: true,
+        eventSources: [{
+            url: {{ url_for( 'calendar.get_events' ) | tojson | safe }},
+            editable: false,
+            className: "internal-event"
+        },
+        {
+            url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
+            editable: false,
+            className: "external-event"
+        }],
+        editable: true,
+        disableDragging: true,
+        disableResizing: true,
+        eventClick: function(event, jsEve, view) {
+        
+            event_win.dialog( "option", "title", 'Update Event' );
+            
+            event_id.val(event.id);
+            event_title.val(event.title);
+            event_start.datetimepicker('setDate', event.start);
+            event_end.datetimepicker('setDate', event.end);
+            event_info.val(event.info);
+            event_location.val(event.location);
+            event_all_day.prop('checked', event.allDay);
+            
+            event_win.dialog("open");
+        }
+    });
+{% else %}
+    $('#calendar').fullCalendar({
+        header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+		},
+        theme: true,
+        eventSources: [
+        {
+            url: {{ url_for( 'calendar.get_events' ) | tojson | safe }},
+            editable: true,
+            className: "internal-event"
+        },
+        {
+            url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
+            editable: false,
+            className: "external-event"
+        }],
+        loading: function(isload) {
+            if(isload) 
+                $('#loading').show();
+            else
+                $('#loading').hide();
+        },
+        
+        eventClick: function(event, jsEve, view) {
+        
+            event_win.dialog( "option", "title", 'Update Event' );
+            
+            event_id.val(event.id);
+            event_title.val(event.title);
+            event_start.datetimepicker('setDate', event.start);
+            event_end.datetimepicker('setDate', event.end);
+            event_info.val(event.info);
+            event_location.val(event.location);
+            event_all_day.prop('checked', event.allDay);
+            
+            event_win.dialog("open");
+        },
+        
+        dayClick: function(date, allDay, jsEve, view) {
+
+            event_win.dialog( "option", "title", 'Add Event' );
+            
+            event_title.val("New Event");
+            event_start.datetimepicker('setDate', date);
+            event_end.datetimepicker('setDate', date);
+            event_info.val("");
+            event_location.val("");
+            event_all_day.prop('checked', false);
+            
+            event_win.dialog("open");
+        }
+    });
+
+{% endif %}
+	$( "#add-start-date" ).datetimepicker({ ampm: true });
+    $( "#add-end-date" ).datetimepicker({ ampm: true });
+//    $( "#user-navigation-bar" ).accordion("option", "active", 1);
+
+    //$( "
+
+});
+
+</script>
+{% endblock %}
+
+
+
+{% block body %}
+
+        
+        <div id="calendar"></div>
+        
+        <div id="event-form" title="Event" style="display:none;">
+            <form id="addeventform" action="" method="POST">
+                <input type="hidden" name="eventid" id="add-event-id">
+                <div style="width: 300px; display: inline-block;">
+                    Title:
+                    <input type="text" name="eventtitle" id="add-title">
+                    Info:
+                    <textarea name="eventinfo" id="add-info"></textarea>
+                    Location:
+                    <input type="text" name="eventlocation" id="add-location" size=16>
+                </div>
+                <div style="display: inline-block; vertical-align: top; width: 140px;">
+                    Start Date/Time:
+                    <input type="text" name="eventstart" id="add-start-date" size=16>
+                    End Date/Time:
+                    <input type="text" name="eventend" id="add-end-date" size=16>
+                    All Day Event:
+                    <input type="checkbox" name="eventallday" id="add-all-day"> 
+                </div>
+            </form>
+        </div>
+
+{% endblock %}
+

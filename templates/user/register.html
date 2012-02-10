@@ -1,0 +1,43 @@
+
+{% extends "layout.html" %}
+{% block body %}
+<div class="main-form">
+<div class="form-title">Register</div>
+<form action="{{ url_for('auth_register') }}" method="POST">
+<fieldset>
+    <legend>User Information</legend>
+    Firstname:
+    <input size=30 type=text name=firstname>
+    Lastname:
+    <input size=30 type=text name=lastname>
+    Display Name (the name which will appear on posts, etc.):
+    <input size=20 type=text name=nickname>
+      
+        {# The following code will print the list of valid degree programs
+           in a select box for the form #}
+    Current Program:
+    <select style="width: 300px" name="degree_program">
+        {% for id,degree in degrees.iteritems() %}
+            <option value="{{id}}">{{degree}}</option>
+        {% endfor %}
+    </select>
+</fieldset>
+
+<fieldset >
+    <legend>Account Information</legend>
+    Username:
+    <input size=16 type=text name=username>
+    Password:
+    <input size=16 type=password name=password>
+    Password Again:
+    <input size=16 type=password name=password2>
+    Email Address:
+    <input size=30 type=text name=email>
+    UNCC Email Address (used for verification purposes):
+    <input size=30 type=text name="uncc_email">
+</fieldset>
+<input type=submit value=Register>
+</form>
+</div>
+{% endblock %}
+

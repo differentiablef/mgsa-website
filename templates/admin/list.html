@@ -1,0 +1,54 @@
+{% extends "admin/extra_base.html" %}
+{% from "admin/_paginationhelpers.html" import render_pagination %}
+
+{% block title %}
+{{model_name}}
+{% endblock %}
+
+
+{% block main %}
+<!--    -->
+<ul id="model-list">
+	<li id="model-list-header">
+		<h2>{{ model_name }} Listing</h2>
+		{{ render_pagination(pagination, 'admin.list', model_name=model_name) }}
+	</li>
+    {% set row_number = 0 %}
+    {% for model_instance in pagination.items  %}
+    	{% set model_url_key = get_model_url_key(model_instance) %}
+	    <li class="model-list-item list-item-{{ row_number % 2 }}">
+    		<a href="{{ url_for('admin.edit', model_name=model_name, model_url_key=model_url_key) }}">
+                {{ model_instance }}
+    		</a>
+		</li><li class="model-list-icons">
+    	    <a href="{{ url_for('admin.delete', model_name=model_name, model_url_key=model_url_key) }}" title="delete">
+    	        <div class="ui-widget ui-state-default ui-corner-all icon-button" title="delete">
+    	            <span class="ui-icon ui-icon-trash"></span>
+    	        </div>
+    	    </a>
+    	    <a href="{{ url_for('admin.edit', model_name=model_name, model_url_key=model_url_key) }}" title="edit">
+    	        <div class="ui-widget ui-state-default ui-corner-all icon-button" title="edit">
+    	            <span class="ui-icon ui-icon-pencil"></span>
+    	        </div>
+    	    </a>
+    	</li>
+        {% set row_number = row_number + 1 %}
+        
+	{% endfor %}
+	<li id="model-list-footer">
+		{{ render_pagination(pagination, 'admin.list', model_name=model_name) }}
+		Add new {{ model_name }}
+		<a class=title="add new {{ model_name }}" href="{{ url_for('admin.add', model_name=model_name) }}">
+			<div class="ui-widget ui-state-default ui-corner-all icon-button" title=".ui-icon-plusthick"><span class="ui-icon ui-icon-plusthick"></span></div>
+		</a>
+	</li>
+</ul>
+
+<script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+
+// ]]>
+</script>
+
+{% endblock %}
+    

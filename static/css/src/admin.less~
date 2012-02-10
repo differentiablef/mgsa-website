@@ -1,0 +1,164 @@
+
+@import "main.config";
+@import "jquery-ui/jquery.ui.theme";
+
+
+#admin-main {
+	letter-spacing: 0.082em;
+    vertical-align: top;
+
+    width: 98%;
+    
+    /* ****************************************************************************
+     * Section: Icon Buttons (add, edit, delete)
+     * ***************************************************************************/
+    
+    .icon-button { 
+        display: inline-block;
+        cursor: pointer; 
+        list-style: none outside none;
+        padding: 4px 4px;
+        position: relative;
+        
+        span .ui-icon {
+            width: 16px; 
+            height: 16px;
+            margin-left: 4px; 
+            margin-right: 4px;
+        }
+    }
+    
+    /* ****************************************************************************
+     * Section: Generic List (used for model-list, and how forms are laid out)
+     * ***************************************************************************/
+    
+    ul { 
+        padding-left: 10px;
+        
+        li {
+            margin-left: 10px;
+            list-style-type: none;
+        }
+    }
+    
+    /* ****************************************************************************
+     * Section: Non-generic, Specific styling for different classes
+     * ***************************************************************************/
+    
+    /* ****************************************************************************
+     * Section: #model-list
+     * ***************************************************************************/
+    
+    #model-list {
+        text-align: right;
+        
+        #model-list-header {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #eee;
+            text-align: left;
+        }
+        
+        .model-list-item {
+            min-height: 16px;
+            display: inline-table;
+            text-align: left;
+            width: 82%;
+//            border-left: 2px solid #999999;
+            
+            a {
+                
+                display: block;
+              	position: relative;
+               	padding-left: 2em;
+               	padding-top: 5px; 
+               	padding-bottom: 5px; 
+           	    margin-left: 0;
+               	
+    
+                &:hover {
+                    border: 0;
+                    background: url('@{ui-image-directory}/@{ui-hover-image}') 50% 50% repeat-x;
+                    color: #000;
+                }
+            }
+        }
+        
+        .model-list-icons { 
+            margin: 0; 
+            display: inline-table;
+            vertical-align: top;
+            padding: 0;
+            
+            border-right: 2px solid #999999;
+            
+            * {
+                border: 0;
+            }
+            
+            a { 
+                padding: 0;
+                border: 0;
+                margin: 0;
+                display: table-cell;
+            }
+            
+            .icon-button {
+                padding: 5px 5px;
+            }
+        }
+        
+        #model-list-footer {
+            border-top: 1px solid #eee;
+            margin-top: 10px;
+            padding-top: 10px;
+            text-align: right;
+            .icon-button {
+                margin-left: 20px;
+            }
+        }
+        
+    }
+
+    /* ****************************************************************************
+     * Section: .model-edit-form
+     * ***************************************************************************/
+    
+    .model-edit-form {
+        legend {
+        	font-size: 1.5em; 
+        	margin-bottom: .75em;
+        	font-weight: bold;
+        }
+        
+        ul { }
+        
+        .field-container {
+        	margin-top: 20px;
+        
+            label {
+            	display: block;
+            	margin-top: 10px;
+            	text-transform: capitalize;
+            }
+            
+            select {
+        	    width: 200px;
+            }
+            
+            input[type=text] {
+            	width: 200px;
+            }
+            
+            textarea {
+        	    width: 475px;
+            	height: 100px;
+            }
+        }
+    }
+    
+    button {  width: auto; overflow: visible; }
+
+}
+
+

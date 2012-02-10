@@ -1,0 +1,74 @@
+
+/* ****************************************************************************
+ * Section: Setup and Specifics
+ * ***************************************************************************/
+
+@ui-image-directory: '../img';
+
+/* ****************************************************************************
+ * Section: Preliminary Generic Styles
+ * ***************************************************************************/
+
+@ui-icon-image: url('@{ui-image-directory}/ui-icons_222222_256x240.png');
+@ui-icon-hover-image: url('@{ui-image-directory}/ui-icons_454545_256x240.png');
+@ui-icon-highlight-image: url('@{ui-image-directory}/ui-icons_2e83ff_256x240.png');
+@ui-icon-error-image: url('@{ui-image-directory}/ui-icons_cd0a0a_256x240.png'); 
+
+@ui-widget-content-image: url('@{ui-image-directory}/ui-bg_flat_75_ffffff_40x100.png');
+@ui-widget-header-image: url('@{ui-image-directory}/ui-bg_highlight-soft_75_cccccc_1x100.png');
+@ui-widget-overlay-image: url('@{ui-image-directory}/ui-bg_flat_0_aaaaaa_40x100.png');
+@ui-widget-shadow-image: url('@{ui-image-directory}/ui-bg_flat_0_aaaaaa_40x100.png');
+
+@ui-border-radius: 0px;
+
+@ui-border-top-left-radius: @ui-border-radius;
+@ui-border-top-right-radius: @ui-border-radius;
+@ui-border-bottom-left-radius: @ui-border-radius;
+@ui-border-bottom-right-radius: @ui-border-radius;
+
+@ui-font-family: Verdana, Arial, sans-serif;
+@ui-base-color: #222222;
+
+
+/* ****************************************************************************
+ * Section: State Specific Styles
+ * ***************************************************************************/
+
+@ui-default-bg-color: #e6e6e6;
+@ui-default-image: 'ui-bg_glass_75_e6e6e6_1x400.png';
+@ui-default-color: #555555;
+
+@ui-hover-bg-color: #dadada;
+@ui-hover-image: 'ui-bg_diagonals-small_75_dadada_40x40.png';
+@ui-hover-color: #212121;
+
+@ui-active-bg-color: #ffa500;
+@ui-active-image: 'ui-bg_flat_65_ffa500_40x100.png';
+@ui-active-color: #212121;
+
+@ui-error-bg-color: #fef1ec;
+@ui-error-image: 'ui-bg_inset-soft_95_fef1ec_1x100.png';
+@ui-error-color: #cd0a0a;
+
+@ui-highlight-bg-color: #fbf9ee;
+@ui-highlight-image: 'ui-bg_glass_55_fbf9ee_1x400.png';
+@ui-highlight-color: #363636;
+
+@ui-focus-bg-color: #dadada;
+@ui-focus-image: 'ui-bg_diagonals-small_75_dadada_40x40.png';
+@ui-focus-color: #212121;
+
+/* ****************************************************************************
+ * TODO: 
+ *    1) add normal css border style variables for the default states
+ *          -> Should follow form ui-{state}-border-{prop}
+ *
+ * ***************************************************************************/
+
+/* Short Hand */
+@ui-family: @ui-font-family;
+
+
+
+
+

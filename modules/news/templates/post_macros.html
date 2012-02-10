@@ -1,0 +1,65 @@
+
+{# Show Post Macro #########################################################}
+
+{% macro show_post(post,user, showMenu=True) %}
+
+	    <div id="post-{{post.id}}" class="post-content">
+	        <div class="post-header"></div>
+	        <div class="post-title">{{ post.get_title()|safe }}</div>
+	        <div class="post-body">{{ post.get_body()|safe }}</div>
+	        {% if showMenu == True %}
+	        <div class="post-menu">
+	            <a href="{{ url_for('.view_post', postid=post.id)}}">read more</a>
+                {% if user.is_authenticated() %}	        
+	            <a href="{{ url_for('.edit_post_view', postid=post.id)}}">edit</a>
+	            <a href="{{ url_for('.delete_post', postid=post.id)}}">delete</a>
+    	        {% endif %}
+    	    </div>
+    	    {% endif %}
+	        <div class="post-footer">
+    	        <div class="post-pubdate">{{ post.get_pub_date() }}</div>
+    	        <div class="post-author">{{ post.get_display_name() }}</div>
+	        </div>
+	        
+	    </div>
+		
+		<div style="clear: both;"></div>
+		<br>
+{% endmacro %}
+
+
+{# Show Post Comment Macro #########################################################}
+
+{% macro show_post_comment(comment,user) %}
+
+		<div id="comment-{{comment.id}}" class="comment-content">
+		    <div class="comment-header"></div>
+		    <div class="comment-pubdate">{{ comment.get_pub_date() }}</div>
+		    <div class="comment-author">{{ comment.get_display_name() }}</div>
+		    <div class="comment-body"><p>{{ comment.get_body() }}</p></div>
+		    <div class="comment-footer"></div>
+		</div>
+
+{% endmacro %}
+
+{# Add Post Comment Macro #########################################################}
+
+{% macro new_post_comment_form(post,user) %}
+
+    <form action="{{ url_for('.add_post_comment', postid=post.id) }}" method="POST">
+        <textarea name="comment-body" cols="40" rows="10">Comment here..</textarea>
+        <input type="submit" value="Add Comment">
+    </form>
+
+{% endmacro %}
+
+
+{# Edit Post Form Macro #########################################################}
+
+{% macro edit_post_form(post) %}
+
+TODO.
+
+{% endmacro %}
+
+

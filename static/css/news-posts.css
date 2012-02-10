@@ -1,0 +1,12 @@
+
+.post-content .post-title{position:relative;font-size:25px;font-weight:bold;padding:5px;padding-bottom:10px;padding-left:10px;background-color:#eee;border-bottom:solid 1px black;}
+.post-content .post-pubdate{width:35%;float:right;min-width:100px;font-weight:bold;padding:4px;font-size:.8em;color:white;background:#999999;text-align:right;border-top:solid 1px black;width:30%;}
+.post-content .post-author{border-top:solid 1px black;background:#999999;font-style:italic;font-size:.8em;padding:4px;width:70%;color:white;}
+.post-content .post-body{clear:both;font-size:1.2em;padding-top:10px;padding-left:20px;padding-right:20px;overflow:hidden;}.post-content .post-body p{text-indent:15px;}
+.post-content .post-body code{display:block;background:#bbb;padding:5px;text-align:none;padding-left:20px;font-family:monospace;}
+.post-content .post-footer{border-bottom:solid 2px #747474;position:relative;margin-top:10px;margin-bottom:5px;}
+.post-content .post-menu{text-align:right;padding:3px;font-size:0.8em;}.post-content .post-menu a{padding:3px;}.post-content .post-menu a:hover{color:black;background-color:#eee;}
+.comment-content{background-color:#eee;border-left:solid 5px black;padding-left:5px;padding-right:20px;padding-bottom:10px;margin-left:10px;margin-bottom:10px;font-size:1em;}
+.comment-content .comment-pubdate{display:inline-block;}
+.comment-content .comment-author{display:inline-block;font-style:italic;}
+.comment-content .comment-body{word-wrap:break-word;font-size:1.2em;}

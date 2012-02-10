@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+
+{% from 'event_macros.html' import show_event %}
+
+{{ show_event(event, current_user) }}
+
+{# ## Commented out ##
+
+<h2>Comments</h2>
+{% for comment in post.comments %} 
+    {{ show_post_comment(comment, current_user) }}
+{% endfor %}
+{% if current_user.is_authenticated() %}
+    {{ new_post_comment_form(post, current_user) }}
+{% endif %}
+
+#}
+
+
+{% endblock %}

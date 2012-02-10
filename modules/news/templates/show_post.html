@@ -1,0 +1,27 @@
+{% from 'post_macros.html' import show_post %}
+{% from 'post_macros.html' import show_post_comment %}
+{% from 'post_macros.html' import new_post_comment_form %}
+
+
+{% extends "layout.html" %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/news-posts.css')}}" />
+{% endblock %}
+
+{% block script %}
+{% endblock %}
+
+{% block body %}
+
+{{ show_post(post, current_user, False) }}
+
+<h2>Comments</h2>
+{% for comment in post.comments %} 
+    {{ show_post_comment(comment, current_user) }}
+{% endfor %}
+{% if current_user.is_authenticated() %}
+    {{ new_post_comment_form(post, current_user) }}
+
+{% endif %}
+{% endblock %}

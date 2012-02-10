@@ -1,0 +1,20 @@
+.menu-button{display:inline-block;padding-left:0.5em;padding-right:0.5em;}.menu-button:hover{background-color:#eeeeee;color:black;}
+#seminars{overflow:hidden;padding:0.25em;}#seminars h2{font-size:2.25em;padding-left:0.25em;}
+.seminar-content{padding-left:0.5em;padding-right:0.5em;}.seminar-content .title{position:relative;background-color:#eee;border-bottom:solid 1px black;padding-left:0.5em;padding-right:0.5em;padding-bottom:0.25em;padding-top:0.5em;font-size:1.5em;font-weight:bold;}
+.seminar-content .website{padding-left:0.5em;padding-bottom:0.25em;padding-top:0.25em;display:inline-block;}
+.seminar-content .contact{padding-left:0.5em;padding-bottom:0.25em;padding-top:0.25em;display:inline-block;}
+.seminar-content .organizer{display:inline-block;}
+.seminar-content .note{background-color:#eee;clear:both;}
+.seminar-content .info{border:0;border-bottom:1px solid black;}
+.seminar-content .description{clear:both;padding:0.5em;text-align:justify;background-color:white;}
+.seminar-content .note{display:block;padding-left:1.5em;padding-right:1.5em;padding-top:0.45em;padding-bottom:0.45em;}
+.seminar-content .menu{clear:both;border-top:1px solid black;}.seminar-content .menu .menu-admin{float:right;display:inline-block;background-color:orange;}
+.seminar-content .menu a{display:inline-block;padding-left:0.5em;padding-right:0.5em;}.seminar-content .menu a:hover{background-color:#eeeeee;color:black;}
+.seminar-content .talk-list h3{margin-left:0.25em;padding-left:0.25em;padding-right:0.5em;margin-bottom:0.5em;padding-top:0.25em;font-size:1.75em;}
+.seminar-content .talk-content{border-left:3px solid black;margin-left:0.9em;margin-bottom:1.2em;padding-right:0.5em;}.seminar-content .talk-content div{padding-left:0.75em;}
+.seminar-content .talk-content h4{padding-left:0.5em;}
+.seminar-content .talk-content .topic{background-color:#eee;font-size:1.5em;font-weight:bold;padding:0.5em;padding-bottom:0.25em;}
+.seminar-content .talk-content .abstract{padding:0.5em;padding-left:0.75em;}
+.seminar-content .talk-content .speaker{padding-bottom:0.25em;}
+.seminar-content .talk-content .speaker-info{padding-bottom:0.25em;}
+.seminar-content .talk-content .menu{border:0;clear:both;height:1.2em;}

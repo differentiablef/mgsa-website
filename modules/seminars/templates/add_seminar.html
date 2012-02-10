@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{%- macro static(some_file) -%}
+{{ url_for('static', filename=some_file) }}
+{%- endmacro -%}
+
+{% block head %}
+<link rel="stylesheet" href="{{ static('css/admin.css') }}">
+
+<script src="{{ static('js/jquery-ui-timepicker.js') }}" type="text/javascript"></script>
+<script src="{{ static('js/jquery-chosen.js') }}" type="text/javascript"></script>
+<script src="{{ static('js/jquery-columnizer.js') }}" type="text/javascript"></script>
+<script src="{{ static('js/admin/plugins.js') }}"></script>
+<script src="{{ static('js/admin/admin.js') }}"></script>
+{% endblock %}
+
+{% block script %}
+{% endblock %}
+
+{% block body %}
+<div id="admin-main">
+<form class="model-edit-form" method="POST" action="{{url_for('.add_seminar')}}" >
+<div id="upper-form" class="model-edit-form">
+<fieldset>
+  <legend>Adding Seminar</legend>
+  
+  <div class="form-right" style="float: right; width: 30%;">
+    <div class="field-container">
+        <label for="contact_name">Contact Name</label>
+        <input style="width:90%" id="contact_name" name="contact_name" type="text" value="" />
+        
+    </div>
+    <div class="field-container">
+        <label for="contact_email">Contact Email</label>
+        <input style="width:90%" id="contact_email" name="contact_email" type="text" value="" />
+    </div>
+    <div class="field-container">
+        <label for="private">Private</label>
+        <input id="private" name="private" type="checkbox" />
+        
+    </div>
+  </div>
+  <div class="form-left" style="float:left; width:70%;">
+    <div class="field-container">
+        <label for="title">Title</label>
+        <input style="width: 90%" id="title" name="title" type="text" value="" />
+    </div>
+    <div class="field-container">
+        <label for="website">Website</label>
+        <input style="width: 90%;" id="website" name="website" type="text" value="" />
+        
+    </div>
+    <div class="field-container">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" style="width:90%"></textarea>
+    </div>
+  </div>
+</fieldset>
+</div>
+
+<input id="submit" type="submit" value="Submit" class="button"/>
+</form>
+</div>
+
+{% endblock %}

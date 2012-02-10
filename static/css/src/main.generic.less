@@ -1,0 +1,94 @@
+@import "main.config";
+
+/******************************************************************************
+ * Section: Generic Styles
+ *****************************************************************************/
+
+* {
+    border: 0;
+    margin: 0;
+}
+
+
+body {
+	background-color: #fff;
+	font-family: @ui-font-family;
+	font-size: 75%;
+}
+
+a {
+    text-decoration: none;
+    color: #003;
+    
+    &:hover {
+        color: #eee;
+    }
+    
+}
+
+form {
+    
+    input[type=text], 
+    input[type=password],
+    select,
+    textarea {
+    
+    	background-color:  #fdfdfd;
+        display: block;
+        border-width: 1px;
+        padding: 2px;
+        margin: 2px;
+    }
+
+    input[type=checkbox] {
+        background: #eee;
+        display: inline;
+        border: solid 1px black;
+        padding: 2px;
+        margin: 2px;
+    }
+    
+    input[type=submit] {
+        margin-left: 5px;
+    }
+    
+}
+
+/* ****************************************************************************
+ * Section: Generic style classes
+ * ***************************************************************************/
+
+.message-flash { 
+
+    background: #AACBE2; 
+    padding: 0.5em;
+    border: 2px solid #0000E2;
+}
+
+.message-error {
+    background: #ffc73d;
+    padding: 0.5em;
+    border: 2px solid #ffb73d;
+}
+
+/* ****************************************************************************
+ * Section: Grid item classes for tables with alternating row color
+ * ***************************************************************************/
+
+.list-item-0 {
+    background-color: @ui-hover-bg-color + #111;
+}
+
+.list-item-1 {
+    background-color: @ui-default-bg-color+ #222;
+
+}
+
+
+
+
+
+
+
+
+

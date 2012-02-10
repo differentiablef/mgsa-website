@@ -1,0 +1,18 @@
+{# User Login Form Macro #########################################################}
+
+{% macro login_form() %}
+
+    <h3 role="tab" style="padding: 5px;" class="ui-accordion-header ui-helper-reset ui-state-active">Login</h3>
+    <div class="login-form" name="login-form">
+      <form action="{{ url_for('auth_login') }}" method="POST">
+	<dl>
+	  <dt>Username:</dt>
+	  <dd><input type=text name=username></dd>
+	  <dt>Password:</dt>
+	  <dd><input type=password name=password></dd>
+	  <dd><input type="submit" value="Login"></dd>
+	</dl>
+      </form>
+      New User? <a href="{{ url_for('auth_register') }}">Click here to register.</a>
+    </div>
+    {% endmacro %}

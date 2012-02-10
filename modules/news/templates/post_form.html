@@ -1,0 +1,28 @@
+{% from 'post_macros.html' import show_post %}
+
+{% extends "layout.html" %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/news-posts.css')}}" ></link>
+
+<!-- TinyMCE Stuff -->
+<script type="text/javascript" src="{{url_for('static', filename='js/tiny_mce/tiny_mce.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/tiny_mce/jquery.tinymce.js')}}"></script>
+
+<!-- Setup the basic editor -->
+<script type="text/javascript" src="{{url_for('static', filename='js/richedit-light.js')}}"></script>
+
+{% endblock %}
+
+{% block script %}
+{% endblock %}
+
+{% block body %}
+{% if current_user.is_authenticated() %}
+        <form action="{{ form_action }}" method="POST" class="{{form_name}}-form">
+            {{ show_post(post,current_user, False) }}
+            <input type="hidden" name="postid" value="{{post_id}}">
+    	    <input type=submit value="Submit">
+	    </form>
+{% endif %}
+{% endblock %}

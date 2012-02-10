@@ -1,0 +1,66 @@
+#!/usr/bin/python
+
+# ##############################################################################
+# Local imports and initialization
+
+from base import base_app, initialize_admin_interface
+from base.user_auth import *
+
+# ##############################################################################
+# Load website content modules
+
+import modules.news
+import modules.articles
+import modules.seminars
+#import modules.example
+import modules.calendar
+import modules.organization
+import modules.usertools
+
+# ##############################################################################
+# Load development code
+
+import development
+
+# ##############################################################################
+# Principal routes
+
+from flask import render_template, url_for, redirect, flash
+from base import call_view
+
+@base_app.login_manager.unauthorized_handler
+def unauthorized_user():
+    return render_template('unauthorized_user.html') 
+
+@base_app.route('/')
+def default( templatename = None, error = None, redirect_func = None ):
+    if not error is None:
+        flash(error, 'error');
+        
+        if not redirect_func is None:
+            return call_view(redirect_func)
+        
+        if templatename is None and redirect_func is None:
+            return call_view('news.default')
+    
+    if templatename is None:
+        templatename = 'layout.html'
+    
+    return render_template( templatename )
+
+base_app.default_view = default
+
+# ##############################################################################
+# Finalize and execute
+
+initialize_admin_interface()
+
+# ##############################################################################
+# Debug stuff
+from base.debug import DebugToolbarExtension
+toolbar = DebugToolbarExtension(base_app)
+
+
+if __name__ == '__main__':
+    base_app.run()
+

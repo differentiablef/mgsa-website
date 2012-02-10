@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+
+{%- macro static(some_file) -%}
+{{ url_for('static', filename=some_file) }}
+{%- endmacro -%}
+
+{% block head %}
+<link rel="stylesheet" href="{{ static('css/admin.css') }}">
+
+<script src="{{ static('js/jquery-ui-timepicker.js') }}" type="text/javascript"></script>
+<script src="{{ static('js/jquery-chosen.js') }}" type="text/javascript"></script>
+<script src="{{ static('js/jquery-columnizer.js') }}" type="text/javascript"></script>
+<script src="{{ static('js/admin/plugins.js') }}"></script>
+
+{% endblock %}
+
+{% block script %}
+{% endblock %}
+
+{% block body %}
+<div id="admin-main">
+<form class="model-edit-form" method="POST" action="{{url_for('.edit_seminar', seminarid=seminar.id)}}" >
+<div id="upper-form" class="model-edit-form">
+<fieldset>
+  <legend>Editing Seminar: {{ seminar.title }}</legend>
+  
+  <div class="form-right" style="float: right; width: 30%;">
+    <div class="field-container">
+        <label for="contact_name">Contact Name</label>
+        <input style="width:90%" id="contact_name" name="contact_name" type="text" value="{{seminar.contact_name}}" />
+        
+    </div>
+    <div class="field-container">
+        <label for="contact_email">Contact Email</label>
+        <input style="width:90%" id="contact_email" name="contact_email" type="text" value="{{seminar.contact_email}}" />
+    </div>
+    <div class="field-container">
+        <label for="private">Private</label>
+        {% if seminar.private %}
+            <input id="private" name="private" type="checkbox" checked="checked" />
+        {% else %}
+            <input id="private" name="private" type="checkbox" />
+        {% endif %}
+        
+    </div>
+  </div>
+  <div class="form-left" style="float:left; width:70%;">
+    <div class="field-container">
+        <label for="title">Title</label>
+        <input style="width: 90%" id="title" name="title" type="text" value="{{seminar.title}}" />
+    </div>
+    <div class="field-container">
+        <label for="website">Website</label>
+        <input style="width: 90%;" id="website" name="website" type="text" value="{{seminar.website}}" />
+        
+    </div>
+    <div class="field-container">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" style="width:90%">{{seminar.description}}</textarea>
+    </div>
+  </div>
+</fieldset>
+</div>
+
+<input id="submit" type="submit" value="Update Seminar" class="button"/>
+</form>
+
+
+<ul id="model-list">
+	<li id="model-list-header">
+		<h2>Talks</h2>
+	</li>
+    
+    {% set row_number = 0 %}
+    {% for talk in seminar.talks %}
+    
+	    <li class="model-list-item list-item-{{ row_number % 2 }}">
+    		<a href="{{ url_for('.edit_talk_seminar', talkid=talk.id) }}">
+                {{ talk }}
+    		</a>
+		</li><li class="model-list-icons">
+    	    <a href="{{ url_for('.delete_talk_seminar', talkid=talk.id) }}" title="delete">
+    	        <div class="ui-widget ui-state-default ui-corner-all icon-button" title="Delete Talk">
+    	            <span class="ui-icon ui-icon-trash"></span>
+    	        </div>
+    	    </a>
+    	    <a href="{{ url_for('.edit_talk_seminar', talkid=talk.id) }}" title="edit">
+    	        <div class="ui-widget ui-state-default ui-corner-all icon-button" title="Edit Talk">
+    	            <span class="ui-icon ui-icon-pencil"></span>
+    	        </div>
+    	    </a>
+    	</li>
+    	
+        {% set row_number = row_number + 1 %}
+        
+	{% endfor %}
+	<li id="model-list-footer">
+		<a class=title="add new {{ model_name }}" href="{{ url_for('.add_talk_seminar', seminarid=seminar.id) }}">
+			<div class="ui-widget ui-state-default ui-corner-all icon-button" title="Add Talk"><span class="ui-icon ui-icon-plusthick"></span></div>
+		</a>
+	</li>
+	
+</ul>
+
+</div>
+
+{% endblock %}

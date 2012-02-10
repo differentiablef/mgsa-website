@@ -1,0 +1,24 @@
+{% from 'post_macros.html' import show_post %}
+
+{% extends "layout.html" %}
+
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/news-posts.css')}}" />
+
+<script type="text/javascript" src="{{url_for('static', filename='js/jquery-expander.js')}}"></script>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" >
+$(function (){
+	$( ".post-body" ).expander({ slicePoint: 400 });
+});
+</script>
+{% endblock %}
+
+{% block body %}
+    {% for post in posts %}
+        {{ show_post(post, current_user) }}
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/about-us.css')}}" />
+{% endblock %}
+
+{% block script %}
+{% endblock %}
+
+{% block body %}
+
+<div class="full-reset" id="about-us">
+
+<h2>About Us</h2>
+{{ get_content('about-us') | safe }}
+
+<h2>Officers</h2>
+{% for officer in officers %}
+	<table width="80%">
+	<tr>
+		<td style="width: 170px; text-align: right;">
+			<div class="profile-pic"><img src="{{ officer.holder.email | gravatar}}"></div>
+			<div class="contact-info">
+				<h3>Contact Information</h3>
+				<h4>{{officer.holder.get_fullname()}}</h4>
+			</div>
+		</td>
+		<td style="vertical-align:top;" class="officer-desc">
+			<h2>{{ officer.get_offices()}}</h2>
+			{{ officer.get_duties() | safe }}
+		</td>
+	</tr>
+	</table>
+{% endfor %}
+</div>
+
+{% endblock %}

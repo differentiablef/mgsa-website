@@ -1,0 +1,22 @@
+{% extends "admin/extra_base.html" %}
+
+{% block title %}
+Models
+{% endblock title %}
+
+{% block body %}
+<div id="admin-menu">
+  <h4>Models</h4>
+  <ul>
+    {% for model in model_names|sort %}
+    <li>
+      <a href="{{ url_for('admin.list', model_name=model,page=1)}}">{{model}}</a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% block main %}
+{% endblock %}
+
+{% endblock %}

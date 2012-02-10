@@ -1,0 +1,60 @@
+{% extends "admin/extra_base.html" %}
+{% from "admin/_paginationhelpers.html" import render_pagination %}
+
+{% block title %}
+{{model_name}}
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ static('css/admin.css') }}">
+
+<script src="{{ static('js/jquery-ui-timepicker.js') }}" type="text/javascript"></script>
+<script src="{{ static('js/jquery-chosen.js') }}" type="text/javascript"></script>
+<script src="{{ static('js/jquery-columnizer.js') }}" type="text/javascript"></script>
+<script src="{{ static('js/admin/plugins.js') }}"></script>
+
+{% endblock %}
+
+
+{% block main %}
+<!--    -->
+<ul id="model-list">
+	<li id="model-list-header">
+		<h2>Listing Talks</h2>
+	</li>
+    {% set row_number = 0 %}
+    {% for seminar in seminars  %}
+    	{% if seminar.Organizer_id == current_user.id or current_user.has_role('admin') %}
+    	{% for talk in seminar.talks %}
+	    <li class="model-list-item list-item-{{ row_number % 2 }}">
+    		<a href="{{ url_for('.edit_talk_seminar', talkid=talk.id) }}">
+                {{ talk }}
+    		</a>
+		</li><li class="model-list-icons">
+    	    <a href="{{ url_for('.delete_talk_seminar', talkid=talk.id) }}" title="delete">
+    	        <div class="ui-widget ui-state-default ui-corner-all icon-button" title="delete">
+    	            <span class="ui-icon ui-icon-trash"></span>
+    	        </div>
+    	    </a>
+    	    <a href="{{ url_for('.edit_talk_seminar', talkid=talk.id) }}" title="edit">
+    	        <div class="ui-widget ui-state-default ui-corner-all icon-button" title="edit">
+    	            <span class="ui-icon ui-icon-pencil"></span>
+    	        </div>
+    	    </a>
+    	</li>
+    	
+        {% set row_number = row_number + 1 %}
+        {% endfor %}
+        {% endif %}
+	{% endfor %}
+	
+</ul>
+
+<script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+
+// ]]>
+</script>
+
+{% endblock %}
+    
