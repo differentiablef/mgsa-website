@@ -7,7 +7,7 @@ from jinja2 import Environment, PackageLoader
 from werkzeug.exceptions import HTTPException
 from werkzeug.urls import url_quote_plus
 
-from flask_debugtoolbar.toolbar import DebugToolbar
+from toolbar import DebugToolbar
 from flask import Blueprint
 
 

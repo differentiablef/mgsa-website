@@ -10,9 +10,9 @@ else:
 
 from flask import request, current_app, abort, json_available, g
 from flask.helpers import json
-from flask_debugtoolbar import module
-from flask_debugtoolbar.panels import DebugPanel
-from flask_debugtoolbar.utils import format_fname, format_sql
+from base.debug import module
+from base.debug.panels import DebugPanel
+from base.debug.utils import format_fname, format_sql
 
 
 _ = lambda x: x

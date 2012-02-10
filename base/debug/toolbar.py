@@ -8,14 +8,14 @@ class DebugToolbar(object):
     config = {
         'DEBUG_TB_INTERCEPT_REDIRECTS': True,
         'DEBUG_TB_PANELS': (
-            'flask_debugtoolbar.panels.versions.VersionDebugPanel',
-            'flask_debugtoolbar.panels.timer.TimerDebugPanel',
-            'flask_debugtoolbar.panels.headers.HeaderDebugPanel',
-            'flask_debugtoolbar.panels.request_vars.RequestVarsDebugPanel',
-            'flask_debugtoolbar.panels.template.TemplateDebugPanel',
-            'flask_debugtoolbar.panels.sqlalchemy.SQLAlchemyDebugPanel',
-            'flask_debugtoolbar.panels.logger.LoggingPanel',
-            'flask_debugtoolbar.panels.profiler.ProfilerDebugPanel',
+            'base.debug.panels.versions.VersionDebugPanel',
+            'base.debug.panels.timer.TimerDebugPanel',
+            'base.debug.panels.headers.HeaderDebugPanel',
+            'base.debug.panels.request_vars.RequestVarsDebugPanel',
+            'base.debug.panels.template.TemplateDebugPanel',
+            'base.debug.panels.sqlalchemy.SQLAlchemyDebugPanel',
+            'base.debug.panels.logger.LoggingPanel',
+            'base.debug.panels.profiler.ProfilerDebugPanel',
         )
     }
 

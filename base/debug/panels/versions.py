@@ -1,5 +1,5 @@
 from flask import __version__ as flask_version
-from flask_debugtoolbar.panels import DebugPanel
+from base.debug.panels import DebugPanel
 
 _ = lambda x: x
 

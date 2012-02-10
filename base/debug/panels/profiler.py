@@ -8,8 +8,8 @@ import os.path
 import pstats
 
 from flask import current_app
-from flask_debugtoolbar.panels import DebugPanel
-from flask_debugtoolbar.utils import format_fname
+from base.debug.panels import DebugPanel
+from base.debug.utils import format_fname
 
 
 class ProfilerDebugPanel(DebugPanel):
