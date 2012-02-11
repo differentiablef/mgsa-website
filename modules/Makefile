@@ -7,7 +7,8 @@ SUB_DIRS=calendar \
 	organization \
 	seminars \
 	articles \
-	usertools
+	usertools \
+	admin
 
 all: 
 
