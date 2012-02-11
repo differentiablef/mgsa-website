@@ -17,7 +17,7 @@ articles_mod.add_side_menu(
         ('Add Article', 'articles.add_article'),
         ('Edit Articles', 'articles.update_articles')
     ],
-    'admin'
+    'contributor'
 )
 
 import models

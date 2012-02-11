@@ -18,19 +18,14 @@ class Article(db.Model):
     javascript_after    = db.Column(db.Text)
     pub_date      = db.Column(db.DateTime)
     author_id        = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-        
     author = db.relationship("User", backref='articles')
     author_blurb = db.Column(db.Text)
     
-    def __init__(self, title=None, body=None, author=0, pub_date=None):
+    def __init__(self, title="", body="", author=0):
         self.title = title
         self.body = body
         self.author_id = author
-        
-        if pub_date is None:
-            pub_date = datetime.utcnow()
-        
-        self.pub_date = pub_date
+        self.pub_date = datetime.utcnow()
 
     def __repr__(self):
         return '%s by %s' % (self.title, self.author.get_display_name())
@@ -89,12 +84,8 @@ class Article_Comment(db.Model):
         
         self.article_id = articleid
         self.body = body
+        self.pub_date = datetime.utcnow()
         
-        if pub_date is None:
-            pub_date = datetime.utcnow()
-        
-        self.pub_date = pub_date
-
     def __repr__(self):
         return '%s by %s' % (self.body, self.author.get_display_name())
 

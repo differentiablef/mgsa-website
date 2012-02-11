@@ -24,7 +24,7 @@ calendar_mod.add_side_menu(
         ('Add Event', 'calendar.admin_add_event'),
         ('List Events', 'calendar.admin_list_events')
     ],
-    'admin'
+    'calendar'
 )
 
 

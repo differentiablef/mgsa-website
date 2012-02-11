@@ -14,7 +14,7 @@ from flask import render_template, request, flash
 # Synop: main entry point for module
 @articles_mod.route("/view")
 def default():
-    arts = Article.query.all()
+    arts = Article.query.order_by('Article.pub_date DESC').all()
     return render_template("view_articles.html", articles = arts)
 
 # ##############################################################################
@@ -56,6 +56,7 @@ def add_article():
         
         base_app.db.session.add(art)
         base_app.db.session.commit()
+        return default()
     
     return render_template("add_article.html")
 
@@ -123,4 +124,4 @@ def add_article_comment(articleid):
     base_app.db.session.add(cmt)
     base_app.db.session.commit()
     
-    return default()
+    return view_article(articleid)

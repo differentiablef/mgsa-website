@@ -16,7 +16,7 @@ from base.module import ContentModule
 # ##############################################################################
 # Define the ContentModule object 
 
-admin_mod = ContentModule('admin', __name__)
+admin_mod = ContentModule('ifadmin', __name__)
 
 # ##############################################################################
 # Add admin side panel menu

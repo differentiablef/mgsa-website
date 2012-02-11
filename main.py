@@ -15,6 +15,7 @@ import modules.seminars
 import modules.calendar
 import modules.organization
 import modules.usertools
+import modules.admin
 
 # ##############################################################################
 # Load development code

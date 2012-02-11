@@ -2,7 +2,7 @@
 from base import base_app, default_view
 from flask import g, render_template
 from flaskext.mail import Message
-from base import g, ajax
+from base import ajax
 
 @base_app.route('/extern/<path>')
 

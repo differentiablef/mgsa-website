@@ -232,10 +232,10 @@ def inject_functions():
 # Synop: this is the site-wide base_app.before_request which is called on every
 #        view
 
-from flask import g, get_flashed_messages
-import json
+#from flask import g, get_flashed_messages
+#import json
 
-@base_app.before_request
-def global_before_request():
-    pass
+#@base_app.before_request
+#def global_before_request():
+#    pass
 

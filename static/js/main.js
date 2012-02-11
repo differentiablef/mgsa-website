@@ -147,9 +147,6 @@ function extern_onload()
 function sijax_onload()
 {
     console.log("sijax_onload");
-    console.log("calling sijax function");
-    
-    Sijax.request('get_flashed_messages');
     
 }
 // /////////////////////////////////////////////////////////////////////////////
