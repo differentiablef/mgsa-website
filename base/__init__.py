@@ -69,10 +69,13 @@ base_app.jinja_env.globals["degrees"] = base_app.config['DEGREE_PROGRAMS']
 
 create_database()
 
-# ##############################################################################
-# Enable less-css compile on demand (see utils/lesscss.py)
+if base_app.debug is True:
+    # ##############################################################################
+    # Enable less-css compile on demand (see utils/lesscss.py)
 
-lesscss(base_app)
+    lesscss(base_app)
+
+
 
 # ##############################################################################
 # Section: Interface functions
