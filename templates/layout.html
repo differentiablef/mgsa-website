@@ -15,16 +15,20 @@
 </script>
 
 <!-- Google WebFonts -->
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,800,700,600,300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,800,700,600,300">
 
 <!-- Global CSS Includes -->
 <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/main-layout.css')}}" />
  
 <!-- Global Javascript Includes -->
-
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script type="text/javascript" src="{{url_for('static', filename='js/extern.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static', filename='js/main.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/extern.js')}}" onload="extern_onload();"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/sijax.js')}}"></script>
+<script type="text/javascript">
+{{ g.sijax.get_js()|safe }};
+sijax_onload();
+</script>
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" onload="mathjax_onload();"></script>
 
 
@@ -33,6 +37,9 @@
 
 <!-- View Specific Scripts -->
 {% block script %}{% endblock %}
+
+<!-- Sijax Request Script --> 
+<script type="text/javascript">{{ g.sijax.get_js()|safe }}</script>
 
 </head>
 <body>

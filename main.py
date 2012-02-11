@@ -24,14 +24,14 @@ import development
 # ##############################################################################
 # Principal routes
 
-from flask import render_template, url_for, redirect, flash
-from base import call_view
+from flask import render_template, url_for, redirect, flash, g
+from base import call_view, ajax
 
 @base_app.login_manager.unauthorized_handler
 def unauthorized_user():
     return render_template('unauthorized_user.html') 
 
-@base_app.route('/')
+@base_app.route('/', methods=['POST', 'GET'])
 def default( templatename = None, error = None, redirect_func = None ):
     if not error is None:
         flash(error, 'error');

@@ -83,10 +83,12 @@ function getModuleName()
 // Synop: load all various
 function initialize_scripts() 
 {
+    /* Now Handled in layout.html using onload="" tag
     // Load scripts
     for( scr in scripts_local ) {
         loadScript(scr, scripts_local[scr]);
     }
+    */
     
     for( scr in scripts_url ) {
         loadScriptURL(scr, scripts_local[scr]);
@@ -131,30 +133,47 @@ function window_onload()
 	
 }
 
-
+// /////////////////////////////////////////////////////////////////////////////
+// Name: extern_onload
+// Synop: after extern.js has been loaded and executed, this gets called
 function extern_onload()
 {
     console.log("extern_onload");
 }
 
+// /////////////////////////////////////////////////////////////////////////////
+// Name: sijax_onload
+// Synop: after sijax.js has been loaded and executed, this gets called
 function sijax_onload()
 {
     console.log("sijax_onload");
+    console.log("calling sijax function");
+    
+    Sijax.request('get_flashed_messages');
+    
 }
-
+// /////////////////////////////////////////////////////////////////////////////
+// Name: mathjax_onload
+// Synop: once the mathjax enviornment is loaded this gets called
+//        and we configure the whole deal for rendering
 function mathjax_onload()
 {
-MathJax.Hub.Config({
-  jax: ["input/TeX","output/HTML-CSS"],
-  extensions: ["tex2jax.js","MathMenu.js","MathZoom.js"],
-  TeX: {
-    extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
-  }
-});
     // initialize and configure mathjax
-    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    MathJax.Hub.Config({
+        jax: ["input/TeX","output/HTML-CSS"],
+        extensions: ["tex2jax.js","MathMenu.js","MathZoom.js"],
+        TeX: {
+            extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+        },
+        tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    
 }
 
+// /////////////////////////////////////////////////////////////////////////////
+// Name: chromeframe_onload
+// Synop: after chromframe script is loaded, test if we need to flash
+//        an install message
 function chromeframe_onload()
 {
     // test for chromeframe and if its needed
@@ -163,24 +182,9 @@ function chromeframe_onload()
         destination: "http://uncc-mgsa.chromotopy.org/" 
     });
 }
+
 // /////////////////////////////////////////////////////////////////////////////
 // Section: Main
-
-// /////////////////////////////////////////////////////////////////////////////
-// Section: Global variables
-
-var scripts_local = {
-    "extern" : extern_onload,
-    "sijax" : sijax_onload
-};
-
-var scripts_url = {
-    "http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js" : chromeframe_onload,
-    "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" : mathjax_onload
-};
-
-// Load all the scripts
-initialize_scripts();
 
 // Connect the events to their callback
 window.onload = window_onload;

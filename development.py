@@ -2,13 +2,16 @@
 from base import base_app, default_view
 from flask import g, render_template
 from flaskext.mail import Message
-
+from base import g, ajax
 
 @base_app.route('/extern/<path>')
 
-@base_app.route('/dev')
+@ajax.route(base_app,'/dev', methods=['POST', 'GET'])
 def forum_wrap():
-    return render_template("layout.iframewrap.html", target="/extern/forum/index.php")
+    if g.sijax.is_sijax_request:
+        return g.sijax.process_request()
+    
+    return default_view()
 
 
 def mailer():

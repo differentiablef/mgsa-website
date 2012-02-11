@@ -58,6 +58,9 @@ base_app.gravatar        = gravatar
 # initialize Sijax
 ajax.Sijax(base_app)
 
+# XXX: This might be a bad idea
+#base_app.route = ajax.route
+
 # ##############################################################################
 # Setup jinja globals for templates
 base_app.jinja_env.globals["content_modules"] = base_app.content_modules
@@ -103,8 +106,6 @@ def register_data_models(modelobjList):
     for obj in modelobjList:
         base_app.admin_models.append(obj)
 
-
-      
 # #############################################################################
 # Name: register_user_role
 # Synop: add the new role to the table of user roles if it is not already 
@@ -201,7 +202,13 @@ def call_view(endpoint, *args, **kargs):
     return redirect(url_for(endpoint, *args, **kargs))
 
 
-from content import Content
+# ##############################################################################
+# Section: request and template context setup functions
+
+
+# ##############################################################################
+# Name: inject_functions
+# Synop: used to pass functions to the template context
 
 @base_app.context_processor
 def inject_functions():
@@ -220,5 +227,15 @@ def inject_functions():
     return dict( get_content = get_content )
 
 
+# ##############################################################################
+# Name: global_before_request
+# Synop: this is the site-wide base_app.before_request which is called on every
+#        view
 
+from flask import g, get_flashed_messages
+import json
+
+@base_app.before_request
+def global_before_request():
+    pass
 
