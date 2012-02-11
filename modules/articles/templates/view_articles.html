@@ -23,10 +23,13 @@
 <script type="text/javascript" language="javascript">
 // <![CDATA[
 
-    $("#articles").columnize({
-        columns: 2,
-        buildOnce: true
-    });
+    if( $(".article-content").length > 3 ) {
+    
+        $("#articles").columnize({
+            columns: 2,
+            buildOnce: true
+        });
+    }
     
 // ]]>
 </script>

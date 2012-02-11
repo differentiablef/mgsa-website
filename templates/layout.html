@@ -11,31 +11,22 @@
 
 <!-- Required Jinja replacement -->
 <script type="text/javascript" >
-    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    $SCRIPT_ROOT = {{ url_for('static', filename='js/')|tojson|safe }};
 </script>
-
-<!-- Global CSS Includes -->
-<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/main-layout.css')}}" />
 
 <!-- Google WebFonts -->
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,800,700,600,300' rel='stylesheet' type='text/css'>
 
-<!-- Google Chrome Frame -->
-<script type="text/javascript"    src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+<!-- Global CSS Includes -->
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/main-layout.css')}}" />
+ 
+<!-- Global Javascript Includes -->
 
-<!-- MathJax -->
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
-
-<!-- Generic JQuery Stuff -->
-<script type="text/javascript" src="{{url_for('static', filename='js/jquery.js')}}"></script>
-<script type="text/javascript" src="{{url_for('static', filename='js/jquery-ui.js')}}"></script>
-<script type="text/javascript" src="{{url_for('static', filename='js/jquery-transform2d.js')}}"></script>
-<script type="text/javascript" src="{{url_for('static', filename='js/jquery-uniform.js')}}"></script>
-<script type="text/javascript" src="{{url_for('static', filename='js/jquery-notify.js')}}"></script>
-
-<!-- Global JS Includes -->
-<script type="text/javascript" src="{{url_for('static', filename='js/sijax.js')}}"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/extern.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static', filename='js/main.js')}}"></script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" onload="mathjax_onload();"></script>
+
 
 <!-- View Specific Head additions -->
 {% block head %}{% endblock %}
@@ -43,16 +34,8 @@
 <!-- View Specific Scripts -->
 {% block script %}{% endblock %}
 
-
 </head>
 <body>
-<!--- Chrome Frame Install/Check -->
-<script text="text/javascript">
-  CFInstall.check({
-  mode: "overlay",
-  destination: "http://uncc-mgsa.chromotopy.org/" 
-});
-</script>
 
 <!-- JQuery-Notify Template -->
 <div id="notify-container" style="display:none; z-index: 99999999;">
@@ -131,7 +114,6 @@
 
 <script type="text/javascript">
     $(function() {
-        $("#notify-container").notify();
         {% for category, message in get_flashed_messages(with_categories = True) %}
             $("#notify-container").notify("create", {title: {{category|tojson|safe}}, text: {{message|tojson|safe}} });
         {% endfor %}
