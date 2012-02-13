@@ -18,18 +18,11 @@ from modules.admin import admin_mod
 
 @admin_mod.route('/db')
 def database_admin():
-    pass
+    return redirect(url_for('admin.index'))
 
-@ajax.route(admin_mod, '/users')
+@admin_mod.route('/users')
 def user_admin():
-
-    flash("interesting", "message")    
-    
-    if g.sijax.is_sijax_request:
-        return g.sijax.process_request()
-        
-    frm = base_app.admin_datastore.get_model_form('User')
-    return render_template('base_form.html',form=frm())
+    return redirect(url_for('admin.list',model_name='User'))
 
 @admin_mod.route('/mods')
 def modules_admin():

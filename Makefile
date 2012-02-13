@@ -21,7 +21,8 @@ PACKAGES= py-bcrypt \
 	Flask-WTF \
 	Flask-SiJax \
 	Flask-Bcrypt \
-	Flask-Mail
+	Flask-Mail \
+	Flask-Silk
 
 CWD=`pwd`
 
