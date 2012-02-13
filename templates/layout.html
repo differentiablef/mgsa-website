@@ -21,16 +21,8 @@
 <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/main-layout.css')}}" />
  
 <!-- Global Javascript Includes -->
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript" src="{{url_for('static', filename='js/main.js')}}"></script>
-<script type="text/javascript" src="{{url_for('static', filename='js/extern.js')}}" onload="extern_onload();"></script>
-<script type="text/javascript" src="{{url_for('static', filename='js/sijax.js')}}"></script>
-<script type="text/javascript">
-{{ g.sijax.get_js()|safe }};
-sijax_onload();
-</script>
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" onload="mathjax_onload();"></script>
-
 
 <!-- View Specific Head additions -->
 {% block head %}{% endblock %}
@@ -38,11 +30,8 @@ sijax_onload();
 <!-- View Specific Scripts -->
 {% block script %}{% endblock %}
 
-<!-- Sijax Request Script --> 
-<script type="text/javascript">{{ g.sijax.get_js()|safe }}</script>
-
 </head>
-<body>
+<body style="display: none;">
 
 <!-- JQuery-Notify Template -->
 <div id="notify-container" style="display:none; z-index: 99999999;">
@@ -118,14 +107,10 @@ sijax_onload();
     <a href="http://www.python.org/"><img src="{{url_for('static', filename='img/python_powered.png')}}" ></a>
   </div>
 </div>
-
-<script type="text/javascript">
-    $(function() {
-        {% for category, message in get_flashed_messages(with_categories = True) %}
-            $("#notify-container").notify("create", {title: {{category|tojson|safe}}, text: {{message|tojson|safe}} });
-        {% endfor %}
-    });
+<script type="text/javascript" >
+document_loaded();
 </script>
+
 
 </body>
 </html>

@@ -51,6 +51,14 @@ def default( templatename = None, error = None, redirect_func = None ):
 base_app.default_view = default
 
 # ##############################################################################
+# Name: sijax_base_res
+
+@ajax.route(base_app, "/ajax")
+def sijax_base_res():
+    if g.sijax.is_sijax_request:
+        return g.sijax.process_request()
+
+# ##############################################################################
 # Finalize and execute
 
 initialize_admin_interface()

@@ -1,13 +1,27 @@
+{# 
+    Required parameters: form (a WTForm object)
+#}
+
 {% extends "layout.html" %}
 
 {% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
 {% endblock %}
 
 {% block script %}
 {% endblock %}
 
 {% block body %}
-
-{{ example_text }}
+<div id="admin-main">
+<form method="POST" class="model-edit-form">
+    {% for field in form %}
+    <div class="field-container">
+        {{field.label}}
+        {{field}}
+    </div>
+    {% endfor %}
+    {{form.csrf}}
+</form>
+</div>
 
 {% endblock %}

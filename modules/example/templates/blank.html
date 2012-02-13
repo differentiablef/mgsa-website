@@ -4,10 +4,32 @@
 {% endblock %}
 
 {% block script %}
+<script type="text/javascript" >
+// ////////////////////////////////////////////////////////////////////////////
+// Name: module_init
+// Synop: This function is called once the page has completed downloading
+//        in general the DOM tree will not be complete when called, so becareful.
+//        and the webpage will not be visable until this function completes
+function module_init()
+{
+    console.log("example: module_init called");
+}
+
+// ////////////////////////////////////////////////////////////////////////////
+// Name: module_onload
+// Synop: this function is called once the window.onload even has fired
+//        which means the DOM tree will be complete, and all the content has 
+//        been loaded.
+function module_onload()
+{
+    console.log("example: module_onload called");
+}
+
+</script>
 {% endblock %}
 
 {% block body %}
-
-{{ example_text }}
-
+<div id="example-content">
+    The follow string was passed to the template by the view function: "{{ example_text }}"
+</div>
 {% endblock %}

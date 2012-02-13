@@ -232,10 +232,29 @@ def inject_functions():
 # Synop: this is the site-wide base_app.before_request which is called on every
 #        view
 
-#from flask import g, get_flashed_messages
-#import json
+from flask import g, get_flashed_messages
+import json
 
-#@base_app.before_request
-#def global_before_request():
-#    pass
+@base_app.before_request
+def global_before_request():
 
+    # ##########################################################################
+    # Name: sijax_get_contents
+    # Synop: querys the database looking for any Content entry with the 
+    #        given tag, and returns the results
+    def sijax_get_contents(objres, tag):
+        cnts = Content.query.filter_by(tag = tag)
+        res = []
+        for cnt in cnts:
+            res.append( cnt.get_contents() )
+        objres.script( "$contents = " + json.dumps(res) )
+
+    def sijax_get_flashed_messages(objres):
+        res = []
+        for cat, msg in get_flashed_messages(with_categories=True):
+            res.append({"title": cat, "text": msg })
+        
+        objres.script( "$flash_messages = " + json.dumps(res) )
+    
+    g.sijax.register_callback('get-messages', sijax_get_flashed_messages)
+    g.sijax.register_callback('get-contents', sijax_get_contents)

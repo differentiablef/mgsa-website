@@ -1,38 +1,18 @@
 {% extends "admin/extra_base.html" %}
 {% from "admin/_formhelpers.html" import render_field %}
 
-{% block title %}
-  Add a new {{model_name}}
-{% endblock %}
 
-
-{% block main %}
-
-
-<form class="model-edit-form" method="POST" action="{{ url_for('admin.add', model_name=model_name)}}" {% if form._has_file_field %} enctype="multipart/form-data"{% endif %}>
-    <div id="upper-form" class="model-edit-form">
-    <fieldset>
-        <legend>
-          Adding {{model_name}}
-        </legend>
-        {% for field in form %}
-            {{ render_field(field) }}
-        {% endfor %}
-        {{ form.csrf }}
-    </fieldset>
-    </div>
-    <div id="lower-form" class="model-edit-form"><fieldset><br id="insert-point"></fieldset></div>
-        <input id="submit" type="submit" value="Submit" class="button"/>
-        {#
-        <!-- <input id="cancel" type="button" value="Cancel" class="button"
-               onclick="javascript:window.location = '{{ url_for('.list', model_name=model_name) }}'" />
-        -->
-        #}
-</form>
-
+{% block script %}
 <script type="text/javascript" language="javascript">
 // <![CDATA[
-field_count = $("form").find(".field-container").size();
+function module_init() {
+    require("jquery-ui-timepicker");
+    require("jquery-chosen");
+    require("jquery-columnizer");
+    require("admin/plugins");
+    require("admin/admin");
+    
+    field_count = $("form").find(".field-container").size();
     
     if( field_count > 3 ) {
         var cont = $("#lower-form #insert-point");
@@ -55,6 +35,31 @@ field_count = $("form").find(".field-container").size();
         });
 
     }
+}
 // ]]>
 </script>
+{% endblock %}
+
+{% block main %}
+<form class="model-edit-form" method="POST" action="{{ url_for('admin.add', model_name=model_name)}}" {% if form._has_file_field %} enctype="multipart/form-data"{% endif %}>
+    <div id="upper-form" class="model-edit-form">
+    <fieldset>
+        <legend>
+          Adding {{model_name}}
+        </legend>
+        {% for field in form %}
+            {{ render_field(field) }}
+        {% endfor %}
+        {{ form.csrf }}
+    </fieldset>
+    </div>
+    <div id="lower-form" class="model-edit-form"><fieldset><br id="insert-point"></fieldset></div>
+        <input id="submit" type="submit" value="Submit" class="button"/>
+        {#
+        <!-- <input id="cancel" type="button" value="Cancel" class="button"
+               onclick="javascript:window.location = '{{ url_for('.list', model_name=model_name) }}'" />
+        -->
+        #}
+</form>
+
 {% endblock %}

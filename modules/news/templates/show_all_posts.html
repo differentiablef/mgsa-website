@@ -5,15 +5,24 @@
 
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/news-posts.css')}}" />
-
-<script type="text/javascript" src="{{url_for('static', filename='js/jquery-expander.js')}}"></script>
 {% endblock %}
 
 {% block script %}
 <script type="text/javascript" >
-$(function (){
+// ////////////////////////////////////////////////////////////////////////////
+// Name: module_init
+// Synop: module entry point
+//        (called before $("body").show() in main.js's main function)
+function module_init() {
+    // load required external librarys
+    require("jquery-expander");
+
+    // do the setup
 	$( ".post-body" ).expander({ slicePoint: 400 });
-});
+	
+}
+
+
 </script>
 {% endblock %}
 

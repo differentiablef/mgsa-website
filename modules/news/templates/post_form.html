@@ -5,16 +5,23 @@
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/news-posts.css')}}" ></link>
 
-<!-- TinyMCE Stuff -->
-<script type="text/javascript" src="{{url_for('static', filename='js/tiny_mce/tiny_mce.js')}}"></script>
-<script type="text/javascript" src="{{url_for('static', filename='js/tiny_mce/jquery.tinymce.js')}}"></script>
-
-<!-- Setup the basic editor -->
-<script type="text/javascript" src="{{url_for('static', filename='js/richedit-light.js')}}"></script>
-
 {% endblock %}
 
 {% block script %}
+<script type="text/javascript" >
+// ////////////////////////////////////////////////////////////////////////////
+// Name: module_init
+// Synop: module entry point
+//        (called before $("body").show() in main.js's main function)
+function module_init() {
+    // load required external librarys
+    require("editor/jquery.wymeditor");
+    
+    $("textarea").wymeditor({wymPath: "/static/js/editor/"});
+    
+}
+
+</script>
 {% endblock %}
 
 {% block body %}
@@ -22,7 +29,7 @@
         <form action="{{ form_action }}" method="POST" class="{{form_name}}-form">
             {{ show_post(post,current_user, False) }}
             <input type="hidden" name="postid" value="{{post_id}}">
-    	    <input type=submit value="Submit">
+    	    <input type=submit value="Submit" onclick="$.wymeditors(0).update()">
 	    </form>
 {% endif %}
 {% endblock %}

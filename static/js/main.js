@@ -1,6 +1,34 @@
 
 // /////////////////////////////////////////////////////////////////////////////
+// Section: Global variables
+// NOTE: there are other onload handlers, but they are connected in layout.html
+
+var scripts_local = {
+    "extern": extern_onload,
+    "sijax": sijax_onload
+}
+
+// /////////////////////////////////////////////////////////////////////////////
 // Section: Global function definitions
+
+// /////////////////////////////////////////////////////////////////////////////
+// Name: require 
+// Synop: load a script with async turned off.
+function require(script, callback) {
+    if(typeof(callback) == "undefined")
+        callback = function() {};
+    
+    $.ajax({
+        url: $SCRIPT_ROOT + script + ".js",
+        dataType: "script",
+        cache: true,
+        async: false,
+        success: callback,
+        error: function () {
+            throw new Error("Could not load script " + script);
+        }
+    });
+}
 
 // /////////////////////////////////////////////////////////////////////////////
 // Name: loadScript
@@ -10,7 +38,7 @@
 function loadScript(script_name, onload_callback, doc) 
 {
 
-    if(typeof doc == "undefined")
+    if(typeof(doc) == "undefined")
         doc = document;
 
     var scrTag = doc.createElement("script");
@@ -79,58 +107,20 @@ function getModuleName()
 
 
 // /////////////////////////////////////////////////////////////////////////////
-// Name: initialize_scripts
-// Synop: load all various
-function initialize_scripts() 
+// Name: initialize_site
+// Synop: load all various crap and call entry point
+function initialize_site(entry_point) 
 {
-    /* Now Handled in layout.html using onload="" tag
-    // Load scripts
-    for( scr in scripts_local ) {
-        loadScript(scr, scripts_local[scr]);
-    }
-    */
-    
-    for( scr in scripts_url ) {
-        loadScriptURL(scr, scripts_local[scr]);
-    }
-    
-}
+    /* Now mostly handled in layout.html using onload="" tag */
 
-
-// /////////////////////////////////////////////////////////////////////////////
-// Section: Document Event Callbacks
-
-function window_onload()
-{
-    var menuHeader = getModuleName();
-    // object tag names for various transform bits
-    // mozTransfrom
-    // msTransform
-    // webkitTransform
-    // oTransform
-    // Transform
+    loadScript("jquery", function() {
+        for( scr in scripts_local ) {
+            require(scr, scripts_local[scr]);
+        }
+        
+        entry_point();
+    });
     
-    // UI initialization
-	$( "input:submit" ).button();
-	$( "input:button" ).button();
-	$("input:text, input:password, textarea").uniform();
-	$("#notify-container").notify();
-	
-	// Setup the user menu, and define the navigationFilter ( see jquery-ui accordion docs )
-	
-	if( typeof document.getElementsByName("login-form")[0] == "undefined" ) {
-	    $( "#user-navigation-bar" ).accordion( { 
-	    	icons: false, 
-	    	autoHeight: false, 
-	    	navigation: true,
-	    	navigationFilter: function (){
-	    		return menuHeader === this.href.split("#")[1];
-	    	} 
-	    });
-	} else {
-	    console.log( typeof document.getElementsByName("login-form")[0] )
-	}
-	
 }
 
 // /////////////////////////////////////////////////////////////////////////////
@@ -146,8 +136,19 @@ function extern_onload()
 // Synop: after sijax.js has been loaded and executed, this gets called
 function sijax_onload()
 {
+    
+    var ajaxAddress = "/ajax";
+    
+    if( $MODULE_NAME != "" ) {
+        var hh = window.location.href.split('mod')[0];
+        
+        ajaxAddress = hh + "mod" + getModuleName() + "/ajax";
+    }
+    
     console.log("sijax_onload");
     
+    Sijax.setRequestUri(ajaxAddress);
+    Sijax.setJsonUri("/static/js/json2.js");
 }
 // /////////////////////////////////////////////////////////////////////////////
 // Name: mathjax_onload
@@ -181,12 +182,99 @@ function chromeframe_onload()
 }
 
 // /////////////////////////////////////////////////////////////////////////////
-// Section: Main
+// Name: document_loaded
+// Synop: called once the browser has loaded the main html document
+//        this is done by placing
+//
+//   <script type="text/javascript">
+//        document_loaded();
+//   </script>
+// 
+//         At the very end of the document
+//
+function document_loaded()
+{
+    console.log("document_loaded");
+    
+    ////////////////////////////////////////////////////////////////////////////
+    // now that everything is loaded and known, we can start
+    // dicking with it:
+    initialize_site(main);
+}
 
-// Connect the events to their callback
+// /////////////////////////////////////////////////////////////////////////////
+// Name: window_onload
+// Synop: called once the document is done loading
+function window_onload(e)
+{
+    console.log("window_onload");
+    $flash_messages.forEach(
+        function(msg) {
+            $("#notify-container").notify("create", msg);
+        }
+    );
+    
+    if( typeof(module_onload) != "undefined" )
+    {
+        module_onload();
+    }
+
+}
+
+// ////////////////////////////////////////////////////////////////////////////
+// Section: Connect events and callbacks
+
 window.onload = window_onload;
 
+// /////////////////////////////////////////////////////////////////////////////
+// Section: Main
 
+function main()
+{
+    console.log("main");
+    var menuHeader = $MODULE_NAME;
+    // object tag names for various transform bits
+    // mozTransfrom
+    // msTransform
+    // webkitTransform
+    // oTransform
+    // Transform
+    
+    // UI initialization
+	$( "input:submit" ).button();
+	$( "input:button" ).button();
+	$( "input:text, input:password, textarea" ).uniform();
+	$( "#notify-container" ).notify();
+	
+	// Setup the user menu, and define the navigationFilter ( see jquery-ui accordion docs )
+	
+	if( typeof document.getElementsByName("login-form")[0] == "undefined" ) {
+        $( "#user-navigation-bar" ).accordion( {
+            icons: false, 
+            autoHeight: false, 
+            navigation: true,
+            navigationFilter: function (){
+	    	  return menuHeader === this.href.split("#")[1];
+	    	}
+	    });
+	}
+    
+    Sijax.request('get-messages');
+    
+    // check to see if there is a js entry point for the current content 
+    // module. If there is, then call it.
+    if( typeof(module_init) != "undefined" )
+    {
+        module_init();
+    }
+    
+    $("body").show();
+}
+
+// ////////////////////////////////////////////////////////////////////////////
+// Section: Globals
+
+$MODULE_NAME = getModuleName();
 
 
 

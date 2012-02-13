@@ -7,8 +7,9 @@
 # ##############################################################################
 # Basic Flask imports
 
+from base import ajax
 from flask import Blueprint
-from flask import url_for
+from flask import url_for, g
 
 # ##############################################################################
 # Name: ContentModule
@@ -34,6 +35,13 @@ class ContentModule(Blueprint):
         self._side_menu_roles = {}
         self._menus_html = {}
         self._side_menus_html = {}
+        
+        @ajax.route(self,"/ajax")
+        def __sijax_handler():
+            if g.sijax.is_sijax_request:
+                return g.sijax.process_request()
+            
+            return "fail."
 
     
     def __repr__(self):
