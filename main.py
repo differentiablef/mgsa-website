@@ -40,7 +40,7 @@ def default( templatename = None, error = None, redirect_func = None ):
         if not redirect_func is None:
             return call_view(redirect_func)
         
-        if templatename is None and redirect_func is None:
+        if templatename is None:
             return redirect(url_for('news.default'))
     
     if templatename is None:

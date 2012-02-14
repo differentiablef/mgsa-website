@@ -27,14 +27,14 @@ def user_admin():
 @admin_mod.route('/mods')
 def modules_admin():
     flash("Not Implemented Yet", "Error")
-    return default_view()
+    return base_app.default_view()
 
 @admin_mod.route('/templates')
 def templates_admin():
     flash("Not Implemented Yet", "Error")
-    return default_view()
+    return base_app.default_view()
 
 @admin_mod.route('/staticfiles')
 def static_admin():
     flash("Not Implemented Yet", "Error")
-    return default_view()
+    return base_app.default_view()
