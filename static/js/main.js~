@@ -221,6 +221,7 @@ function window_onload(e)
         );
     }
     
+    // call the modules onload handler
     if( typeof(module_onload) != "undefined" )
     {
         module_onload();

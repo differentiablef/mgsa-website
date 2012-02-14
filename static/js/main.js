@@ -210,7 +210,7 @@ function window_onload(e)
     console.log("window_onload");
     
     // request flash messages from server
-    Sijax.request('get-messages');
+    Sijax.requestSync('get-messages');
     
     // see what we get
     if(typeof($flash_messages) != "undefined"){

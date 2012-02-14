@@ -78,6 +78,34 @@ Sijax.process_call = function (params) {
 	callback.apply(null, params.params);
 };
 
+
+Sijax.requestSync = function (functionName, callArgs, requestParams) {
+	if (! callArgs) {
+		callArgs = [];
+	}
+	if (! requestParams) {
+		requestParams = {};
+	}
+
+	var data = {},
+		defaultRequestParams;
+
+	data[Sijax.PARAM_REQUEST] = functionName;
+	data[Sijax.PARAM_ARGS] = JSON.stringify(callArgs);
+
+	defaultRequestParams = {
+		"url": Sijax.requestUri,
+		"type": "POST",
+		"data": data,
+		"cache": false,
+		"dataType": "json",
+		"async": false,
+		"success": Sijax.processCommands
+	};
+
+	jQuery.ajax(jQuery.extend(defaultRequestParams, requestParams));
+};
+
 Sijax.request = function (functionName, callArgs, requestParams) {
 	if (! callArgs) {
 		callArgs = [];
