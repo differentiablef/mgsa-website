@@ -9034,6 +9034,10 @@ WYMeditor.Lexer.prototype.parse = function(raw) {
     if (typeof this._parser == 'undefined') {
         return false;
     }
+    
+    if( typeof raw == "undefined" ) {
+        return false;
+    }
 
     var length = raw.length;
     var parsed;

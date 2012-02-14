@@ -9,7 +9,8 @@ DIST_CSS=main.layout.css \
 	news-posts.css \
 	content.css \
 	about-us.css \
-	seminar.css
+	seminar.css \
+	autoindex.css
 
 SRC=$(wildcard *.less jquery-ui/*.less)
 

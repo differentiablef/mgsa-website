@@ -106,10 +106,10 @@ class AutoIndex(object):
             if template:
                 return render_template(template, **context)
             try:
-                template = '{0}autoindex.html'.format(self.template_prefix)
+                template = 'autoindex.html'
                 return render_template(template, **context)
             except TemplateNotFound as e:
-                template = '{0}/autoindex.html'.format(__autoindex__)
+                template = 'autoindex.html'
                 return render_template(template, **context)
         elif os.path.isfile(abspath):
             return send_file(abspath)

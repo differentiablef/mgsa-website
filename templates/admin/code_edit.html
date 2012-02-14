@@ -14,6 +14,14 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='js/codemirror/theme/night.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/main-layout.css')}}" />
     
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='js/codemirror/theme/neat.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='js/codemirror/theme/elegant.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='js/codemirror/theme/night.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='js/codemirror/theme/monokai.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='js/codemirror/theme/cobalt.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='js/codemirror/theme/eclipse.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='js/codemirror/theme/rubyblue.css') }}">
+
     <!-- MathJax -->
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
     
@@ -32,6 +40,8 @@
     <script type="text/javascript" src="{{url_for('static', filename='js/codemirror/lib/util/dialog.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename='js/codemirror/mode/htmlmixed/htmlmixed.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename='js/codemirror/mode/xml/xml.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/codemirror/mode/javascript/javascript.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/codemirror/mode/python/python.js')}}"></script>
     
     <style type="text/css">
     .CodeMirror {
@@ -47,6 +57,21 @@
         width: 100%;
     }
 
+    .icon-button { 
+        display: inline-block;
+        cursor: pointer; 
+        list-style: none outside none;
+        padding: 4px 4px;
+        position: relative;
+    }
+    .icon-button span .ui-icon {
+        width: 16px; 
+        height: 16px;
+        margin-left: 4px; 
+        margin-right: 4px;
+    }
+    
+    
     .cm-jinja2 {color: #0ca;}
     </style>
 
@@ -56,6 +81,23 @@
   </head>
 <body>
 <form>
+<div id="toolbar">
+    <div class="ui-state-default ui-corner-all icon-button" title=".ui-icon-plus"><span class="ui-icon ui-icon-plus"></span></div>
+    <div class="ui-state-default ui-corner-all icon-button" title=".ui-icon-trash"><span class="ui-icon ui-icon-trash"></span></div>
+    <div class="ui-state-default ui-corner-all icon-button" title=".ui-icon-trash"><span class="ui-icon ui-icon-trash"></span></div>
+    <div class="ui-state-default ui-corner-all icon-button" title=".ui-icon-trash"><span class="ui-icon ui-icon-trash"></span></div>
+    <div class="ui-state-default ui-corner-all icon-button" title=".ui-icon-document"><span class="ui-icon ui-icon-document"></span></div>
+    <select onchange="selectTheme(this)">
+        <option selected>default</option>
+        <option>night</option>
+        <option>monokai</option>
+        <option>neat</option>
+        <option>elegant</option>
+        <option>cobalt</option>
+        <option>eclipse</option>
+        <option>rubyblue</option>
+    </select>
+</div>
 <div id="code-container">
     <textarea id="code" name="code">
         {{ resource_contents|safe }}
@@ -64,5 +106,6 @@
 
 </form>
 <script type="text/javascript" src="{{url_for('static', filename='js/admin/code_edit.js')}}"></script>
+<script type="text/javascript">editor.setOption("mode", {{resource_type|tojson|safe}})</script>
 </body>
 </html>

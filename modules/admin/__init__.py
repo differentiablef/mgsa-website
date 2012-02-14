@@ -12,11 +12,18 @@ from base import register_data_models
 from base import register_user_role
 from base import url_for
 from base.module import ContentModule
+from base.utils.autoindex import AutoIndex
 
 # ##############################################################################
 # Define the ContentModule object 
 
 admin_mod = ContentModule('ifadmin', __name__)
+
+# ##############################################################################
+# define aux objects
+
+#templates_obj = AutoIndex(admin_mod, browse_root="static" )
+
 
 # ##############################################################################
 # Add admin side panel menu

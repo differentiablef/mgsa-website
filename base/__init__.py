@@ -25,6 +25,7 @@ base_app = Flask('__main__')
 base_app.config.from_pyfile('./website.conf')
 base_app.config['SQLALCHEMY_DATABASE_URI'] = base_app.config['DATABASE_URI']
 base_app.config['SIJAX_JSON_URI'] = '/static/js/json2.js'
+base_app.jinja_env.trim_blocks = True
 
 
 # ##############################################################################
@@ -41,6 +42,8 @@ from base.database import create_database
 from base.utils.gravatar import Gravatar
 from base.utils.login import *
 from base.utils.lesscss import lesscss
+from base.utils.autoindex import AutoIndex
+
 
 login_manager = LoginManager( )
 login_manager.setup_app(base_app)
@@ -60,6 +63,10 @@ ajax.Sijax(base_app)
 
 # XXX: This might be a bad idea
 #base_app.route = ajax.route
+
+# XXX: This is the preliminary use of autoindex
+# AutoIndex(base_app, browse_root="templates")
+
 
 # ##############################################################################
 # Setup jinja globals for templates
@@ -152,7 +159,8 @@ def initialize_admin_interface():
     admin_blueprint = admin.create_admin_blueprint( base_app.admin_datastore, 
                                                     view_decorator = role_required('admin'))
                                                     
-
+    # TODO: Complete this editor, by either using ace or finish rolling own
+    #       with codemirror
     # add the resource/template editor
     # we define this function here for "security reasons"
     @admin_blueprint.route("/resedit/<path:filename>")
@@ -164,7 +172,9 @@ def initialize_admin_interface():
 
         fil = base_app.open_resource(filename)
         res_contents=fil.read()
-        return render_template('admin/code_edit.html', resource_contents = res_contents)
+        filtype = mimetypes.guess_type(filename)[0].replace("application","text")
+        
+        return render_template('admin/code_edit.html', resource_contents = res_contents, resource_type=filtype)
 
     base_app.register_blueprint(admin_blueprint, url_prefix='/admin')
     
@@ -247,8 +257,11 @@ def global_before_request():
         res = []
         for cnt in cnts:
             res.append( cnt.get_contents() )
-        objres.script( "$contents = " + json.dumps(res) )
+        objres.script( "$contents[\"" + tag + "\"] = " + json.dumps(res) )
 
+    # ##########################################################################
+    # Name: sijax_get_flashed_messages
+    # Synop: return an array of flashed messages
     def sijax_get_flashed_messages(objres):
         res = []
         for cat, msg in get_flashed_messages(with_categories=True):

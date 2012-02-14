@@ -208,11 +208,13 @@ function document_loaded()
 function window_onload(e)
 {
     console.log("window_onload");
-    $flash_messages.forEach(
-        function(msg) {
-            $("#notify-container").notify("create", msg);
-        }
-    );
+    if(typeof($flash_messages) != "undefined"){
+        $flash_messages.forEach(
+            function(msg) {
+                $("#notify-container").notify("create", msg);
+            }
+        );
+    }
     
     if( typeof(module_onload) != "undefined" )
     {
