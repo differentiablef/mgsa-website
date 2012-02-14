@@ -208,6 +208,11 @@ function document_loaded()
 function window_onload(e)
 {
     console.log("window_onload");
+    
+    // request flash messages from server
+    Sijax.request('get-messages');
+    
+    // see what we get
     if(typeof($flash_messages) != "undefined"){
         $flash_messages.forEach(
             function(msg) {
@@ -216,6 +221,7 @@ function window_onload(e)
         );
     }
     
+    // call the modules onload handler
     if( typeof(module_onload) != "undefined" )
     {
         module_onload();
@@ -261,7 +267,7 @@ function main()
 	    });
 	}
     
-    Sijax.request('get-messages');
+
     
     // check to see if there is a js entry point for the current content 
     // module. If there is, then call it.
