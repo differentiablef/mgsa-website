@@ -1,5 +1,6 @@
 
-      MGSA-Website
+      MGSA-Website 
+      (broken... SQLAlchemy changed the attributes of the Relationship class) 
  ---------------------------------------------------------------------------
 
  This is a basic Flask-based 'CMS' written specifically to service
